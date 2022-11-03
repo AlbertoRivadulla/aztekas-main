@@ -172,7 +172,7 @@ include $(AZTPATH)/Src/physics/Makefile
 
 THREADS = $(shell grep '^core id' /proc/cpuinfo |sort -u|wc -l)
 
-FLAGS = -lm -fcommon -std=gnu99 -lgfortran
+FLAGS = -lm -fcommon -std=gnu99 -L/opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/12/ -lgfortran
 ifneq ($(OMP_NUM),1)
    FLAGS += -fopenmp -lgomp
 endif

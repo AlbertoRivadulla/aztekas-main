@@ -1,0 +1,16 @@
+- Create a directory for the metric in 
+    /Src/RHD/physics/Schwarzschild-ECG
+- Add this option in the Makefile
+    /Src/RHD/physics/Makefile
+- Create a new simulation in 
+    /SIMULATIONS/RHD/Wind-Schwarzschild-ECG
+- In the Makefile of the simulation, choose the metric and the coordinates (spherical)
+
+
+
+
+################################################################################
+    NOTES
+################################################################################
+- Run `bear -- make` inside the simulation folder to create the compile_commands.json
+file, so the coc.nvim plugin knows where to find the definitions of the different functions.

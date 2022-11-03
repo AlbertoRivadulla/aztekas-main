@@ -243,11 +243,13 @@ void Manage_Simulation_Info(int argc, char *argv[])
 {
 	// create output directory
    //char create_dir[10] = "mkdir -p ";	
+
    char *create_dir = malloc(50*sizeof(char));
    strcpy(create_dir,"mkdir -p ");
    strcat(create_dir,outputdirectory);	
    int sysret = system(create_dir);
    free(create_dir);
+   /* printf("algo\n"); */
 
    char *create_info = malloc(50*sizeof(char));
    strcpy(create_info,"mkdir -p ");
@@ -255,6 +257,7 @@ void Manage_Simulation_Info(int argc, char *argv[])
    strcat(create_info,"INFO/");
    sysret = system(create_info);
    free(create_info);
+   /* printf("algo\n"); */
 
    #if MDOT == TRUE
    char *create_analysis = malloc(50*sizeof(char));
@@ -264,6 +267,7 @@ void Manage_Simulation_Info(int argc, char *argv[])
    sysret = system(create_analysis);
    free(create_analysis);
    #endif
+   /* printf("algo\n"); */
 
    // copy
    char *files = malloc(50*sizeof(char));
@@ -273,6 +277,7 @@ void Manage_Simulation_Info(int argc, char *argv[])
    strcat(files,outputdirectory);
    strcat(files,"INFO/");
    sysret = system(files);
+   /* printf("algo\n"); */
    
    strcpy(files,"cp ");
    strcat(files,"Makefile");
@@ -280,6 +285,7 @@ void Manage_Simulation_Info(int argc, char *argv[])
    strcat(files,outputdirectory);
    strcat(files,"INFO/");
    sysret = system(files);
+   /* printf("algo\n"); */
 
    strcpy(files,"cp ");
    strcat(files,"*.c");
@@ -287,17 +293,22 @@ void Manage_Simulation_Info(int argc, char *argv[])
    strcat(files,outputdirectory);
    strcat(files,"INFO/");
    sysret = system(files);
+   /* printf("algo3\n"); */
 
    strcpy(files,"cp ");
    strcat(files,"*.h");
    strcat(files," ");
    strcat(files,outputdirectory);
    strcat(files,"INFO/");
+   /* printf("files %s\n", files); */
    sysret = system(files);
+   printf("I had to put this print here to avoid the program crashing.\n");
    free(files);
 
    Check_Sim_Parameters();
+   /* printf("algo\n"); */
    if(check_param == TRUE) getchar();
+   /* printf("algo\n"); */
 }
 
 void Check_Paramfile(char *param, int argc, char *argv[])

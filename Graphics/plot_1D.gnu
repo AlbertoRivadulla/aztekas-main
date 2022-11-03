@@ -1,4 +1,4 @@
-#!/usr/bin/gnuplot -c
+#!/opt/homebrew/bin/gnuplot -c
 
 #####################################
 # Filame as argument

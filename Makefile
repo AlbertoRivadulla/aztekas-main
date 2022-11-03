@@ -15,35 +15,6 @@
 
 AZTPATH = $(AZTEKAS_PATH)
 
-# AUX1 := $(AZTEKAS_PATH)
-# AZTPATH := $(subst \,\\,$(AUX1))
-# # AZTPATH = $(subst \ ,\\ ,$(AZTEKAS_PATH))
-#
-# # AZTPATH = $AZTEKAS_PATH
-# #
-# all:
-# 	 @echo ${value AUX1}
-# 	 @echo ${value AZTPATH}
-#
-
-# foo:
-#      x="hello/world" ; \
-#      y=`echo $$x | tr / -` ; \
-#      echo $$y
-
-# $(AZTPATH):
-# 	 touch $(subst \,\\,$@)
-
-# help:
-#
-#     @echo ${AZTPATH}
-
-# .PHONY: print_vars
-#
-# print_vars:
-#
-#     echo $(AZTPATH)
-
 ##################################################
 # SET NUMBER OF THREADS USED BY OMP
 ##################################################
@@ -55,24 +26,16 @@ AZTPATH = $(AZTEKAS_PATH)
 OMP_NUM = 1
 
 ##################################################
-# Physics (HD)
-#    - HYDRO (Euler inviscid equations)
-#    - Lane-Endem?
-# Physics (RHD)
-#    - HYDRO (Euler inviscid equations)
-#    - TOV (Tolman-Oppenheimer-Volkoff, RHD only)
+# Physics (HD, MHD, RHD, RMHD)
 ##################################################
 
 PHY = HD
-
-HYDRO = True
-TOV   = False
 
 ##################################################
 # Dimension (1, 2 or 3. Enter 4 for 2.5)
 ##################################################
 
-DIM = 1
+DIM = 2
 
 ##################################################
 # Metric (User, Minkowski, Schwarzschild, 
@@ -81,7 +44,7 @@ DIM = 1
 # ONLY IF PHY == RHD or RMHD
 ##################################################
 
-METRIC = Minkowski
+METRIC = 
 
 ##################################################
 # Equation of State (User, Ideal, Dust, Stiff)
@@ -93,19 +56,19 @@ EOS = Ideal
 # Coordinates (Cartesian, Cylindrical, Spherical)
 ##################################################
 
-COORD = Spherical
+COORD = Cartesian
 
 ##################################################
-# User Source Terms (True,False)
+# User Source Terms (true,false)
 ##################################################
 
-USER_SOURCE = False
+USER_SOURCE = false
 
 ##################################################
 # Integration method
 ##################################################
 
-INT = Standard
+INT = standard
 
 ##################################################
 # All user *.c are written here
@@ -123,7 +86,4 @@ USR = initial.c \
 # and recursive Makefiles only if you know what
 # your doing.
 ##################################################
-# include ../../../Src/Makefile
 include $(AZTPATH)/Src/Makefile
-# include $(AZTPATH)/Src/Makefile
-# include ${value AZTPATH}/Src/Makefile
