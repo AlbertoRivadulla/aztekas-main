@@ -47,12 +47,13 @@
 #define SPHERICAL   2
 
 /* METRIC */
-#define USER   0
-#define MINK   1
-#define SCHW   2
-#define EF     3
-#define BL     4
-#define KS     5
+#define USER     0
+#define MINK     1
+#define SCHW     2
+#define EF       3
+#define BL       4
+#define KS       5
+#define SCHW_ECG 6
 
 /* GRID */
 #define UNIFORM   0

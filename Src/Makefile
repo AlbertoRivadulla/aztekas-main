@@ -172,7 +172,21 @@ include $(AZTPATH)/Src/physics/Makefile
 
 THREADS = $(shell grep '^core id' /proc/cpuinfo |sort -u|wc -l)
 
-FLAGS = -lm -fcommon -std=gnu99 -L/opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/12/ -lgfortran
+FLAGS = -lm -fcommon -std=gnu99 -lgfortran
+# FLAGS = -lm -fcommon -std=gnu99 -L/opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/12/ -lgfortran
+
+# Ad-hoc fix for compiling in my M1 Mac. I need to tell the compiler where the gcc libraries are found.
+# Check the OS of the machine
+UNAME := $(shell uname)
+ifeq ($(UNAME),Darwin)
+   # Check the architecture of the machine
+   UNAME_M := $(shell uname -m)
+   ifeq ($(UNAME_M),arm64)
+      # FLAGS += -L/opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/12/
+      FLAGS += -L/opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/current/
+   endif
+endif
+
 ifneq ($(OMP_NUM),1)
    FLAGS += -fopenmp -lgomp
 endif
@@ -181,7 +195,6 @@ COMPILER = gcc
 AZT_HEAD = $(AZTPATH)/Src/include
 HEADERS = -I$(AZT_HEAD) -I.
 EXEC = aztekas
-
 
 all: 
 	@echo ""

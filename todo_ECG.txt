@@ -1,10 +1,28 @@
+################################################################################
+    DONE
+################################################################################
+
 - Create a directory for the metric in 
-    /Src/RHD/physics/Schwarzschild-ECG
+    /Src/physics/RHD/Schwarzschild-ECG
 - Add this option in the Makefile
-    /Src/RHD/physics/Makefile
+    /Src/physics/RHD/Makefile
+- Created a new value for the macro METRIC, SCHW_ECG = 6, in the file
+    /Src/include/macros
+    I modified also the file /Src/common/messages.c to print messages for the ECG metric.
 - Create a new simulation in 
     /SIMULATIONS/RHD/Wind-Schwarzschild-ECG
-- In the Makefile of the simulation, choose the metric and the coordinates (spherical)
+    - In the Makefile of the simulation, choose the metric and the coordinates (spherical)
+- Find where the macro METRIC is checked in the code, and make it work for the ECG metric.
+    - It is checked only in the Makefile 
+        /Src/physics/RHD/Makefile
+    It simply tells the compiler to compile the correct metric.c
+
+################################################################################
+    TO DO
+################################################################################
+
+- Define the metric of ECG in 
+    /Src/physics/RHD/Schwarzschild-ECG
 
 
 

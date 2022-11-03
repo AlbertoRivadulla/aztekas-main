@@ -70,6 +70,7 @@ void Check_Sim_Parameters()
    if(METRIC==EF) printf("Cartesian grid in a Eddington-Finkelstein space-time (x,y,z).\n");
    if(METRIC==BL) printf("Cartesian grid in a Boyer-Lindquist space-time (x,y,z).\n");
    if(METRIC==KS) printf("Cartesian grid in a Kerr-Schild space-time (x,y,z).\n");
+   if(METRIC==SCHW_ECG) printf("Cartesian grid in a Schwarzschild space-time with ECG corrections (x,y,z).\n");
 
    #elif COORDINATES == CYLINDRICAL
 
@@ -79,6 +80,8 @@ void Check_Sim_Parameters()
    if(METRIC==EF) printf("Cylindrical grid in a Eddington-Finkelstein space-time (R,z,phi).\n");
    if(METRIC==BL) printf("Cylindrical grid in a Boyer-Lindquist space-time (R,z,phi).\n");
    if(METRIC==KS) printf("Cylindrical grid in a Kerr-Schild space-time (R,z,phi).\n");
+   if(METRIC==SCHW_ECG) printf("Cylindrical grid in a Schwarzschild space-time with ECG corrections (R,z,phi).\n");
+
 
    #elif COORDINATES == SPHERICAL && POLAR == FALSE
    if(METRIC==USER) printf("Spherical grid in a User defined space-time (r,theta,phi).\n");
@@ -87,6 +90,8 @@ void Check_Sim_Parameters()
    if(METRIC==EF) printf("Spherical grid in a Eddington-Finkelstein space-time (r,theta,phi).\n");
    if(METRIC==BL) printf("Spherical grid in a Boyer-Lindquist space-time (r,theta,phi).\n");
    if(METRIC==KS) printf("Spherical grid in a Kerr-Schild space-time (r,theta,phi).\n");
+   if(METRIC==SCHW_ECG) printf("Spherical grid in a Schwarzschild space-time with ECG corrections (r,theta,phi).\n");
+
    #elif COORDINATES == SPHERICAL && POLAR == TRUE
    if(METRIC==USER) printf("Polar grid in a User defined space-time (R,phi).\n");
    if(METRIC==MINK) printf("Polar grid in a Minkowski space-time (R,phi).\n");
@@ -94,6 +99,8 @@ void Check_Sim_Parameters()
    if(METRIC==EF) printf("Polar grid in a Eddington-Finkelstein space-time (R,phi).\n");
    if(METRIC==BL) printf("Polar grid in a Boyer-Lindquist space-time (R,phi).\n");
    if(METRIC==KS) printf("Polar grid in a Kerr-Schild space-time (R,phi).\n");
+   if(METRIC==SCHW_ECG) printf("Polar grid in a Schwarzschild space-time with ECG corrections (R,phi).\n");
+
    #endif
 
 #endif

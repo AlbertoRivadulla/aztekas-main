@@ -20,6 +20,9 @@ endif
 ifeq ($(METRIC),Kerr-Schild)
    PARAM += -DMETRIC=KS
 endif
+ifeq ($(METRIC),Schwarzschild-ECG)
+   PARAM += -DMETRIC=SCHW_ECG
+endif
 
 ifneq ($(METRIC),User)
    PHYSICS += $(AZTPATH)/Src/physics/RHD/$(METRIC)/metric.c
