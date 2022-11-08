@@ -2,33 +2,88 @@
     DONE
 ################################################################################
 
-- Create a directory for the metric in 
-    /Src/physics/RHD/Schwarzschild-ECG
-- Add this option in the Makefile
-    /Src/physics/RHD/Makefile
-- Created a new value for the macro METRIC, SCHW_ECG = 6, in the file
-    /Src/include/macros
-    I modified also the file /Src/common/messages.c to print messages for the ECG metric.
+/* I CHANGED THIS!
+    - Create a directory for the metric in 
+        /Src/physics/RHD/Schwarzschild-ECG
+    - Add this option in the Makefile
+        /Src/physics/RHD/Makefile
+    I did this as 
+        ifeq ($(METRIC),Schwarzschild-ECG)
+            PARAM += -DMETRIC=SCHW_ECG
+        endif
+    - Created a new value for the macro METRIC, SCHW_ECG = 6, in the file
+        /Src/include/macros
+    I modified also the file 
+        /Src/common/messages.c
+    to print messages for the ECG metric.
+*/
+
 - Create a new simulation in 
     /SIMULATIONS/RHD/Wind-Schwarzschild-ECG
     - In the Makefile of the simulation, choose the metric and the coordinates (spherical)
 - Find where the macro METRIC is checked in the code, and make it work for the ECG metric.
     - It is checked only in the Makefile 
         /Src/physics/RHD/Makefile
-    It simply tells the compiler to compile the correct metric.c
+      This simply tells the compiler to compile the correct metric.c
+
+- Plotting
+    - I changed the script plot_2D.py in the Wind-Schwarzschild-ECG directory so 
+      that the quiver and stream plots are symmetric.
 
 ################################################################################
     TO DO
 ################################################################################
 
 - Define the metric of ECG in 
+    /SIMULATIONS/RHD/Wind-Schwarzschild-ECG/user_metric.c
+I could also define it in 
     /Src/physics/RHD/Schwarzschild-ECG
+so it can be used by other simulations.
+
+- If I want to plot velocities:
+    - In the output, write also the components of the velocity multiplied by the functions
+    in the metric, so I don't have to do it in the python script.
+
+- Find how many times the method Gauge_Derivatives of the metric is called, by using prints
+    If it is called many times, maybe I could be able to call it just once, speeding up the computation.
 
 
 
 
 ################################################################################
-    NOTES
+    NOTES ON THE CODE
 ################################################################################
+
+- The mesh has values of the coordinates in the system given (not always cartesian).
+If the coordinate system is SPHERICAL, the coordinate x2 is multiplied by PI, and if
+it is CYLINDRICAL or SPHERICAL the coordinate x3 is multiplied by PI.
+    This happens in the function Default_Parameters, in the file 
+        Src/common/input.c
+- The parameter gc (number of ghost cells) is defined as a preprocessor macro in
+    Src/Makefile
+- Output file:
+    - The first few lines are information on the domain and time of the current frame
+    - The following columns are the values in the grid of:
+        DIM = 2: x1, x2, density, pressure (?), v_x, v_y
+
+- In order to generate the plots and video, I copy the scripts frames and video_maker 
+  in the directory where the output files are placed.
+
+################################################################################
+    QUESTIONS ABOUT THE CODE
+################################################################################
+
+- In plot_2D.py:
+    - The variables u and v (the two components of the velocity) are not defined.
+    How should I compute them from the ones given?
+    - In the spherical and cylindrical case, I think the labels are not correct,
+    since the meshgrid is cartesian (although the original coordinates are angular and radial).
+
+
+################################################################################
+    NOTES ON COMPILATION AND EXECUTION
+################################################################################
+
 - Run `bear -- make` inside the simulation folder to create the compile_commands.json
 file, so the coc.nvim plugin knows where to find the definitions of the different functions.
+

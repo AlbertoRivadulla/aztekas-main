@@ -23,7 +23,8 @@ AZTPATH = $(AZTEKAS_PATH)
 # $ grep '^core id' /proc/cpuinfo |sort -u|wc -l
 ##################################################
 
-OMP_NUM = 1
+# OMP_NUM = 1
+OMP_NUM = 6
 
 ##################################################
 # Physics (HD)
@@ -35,7 +36,6 @@ OMP_NUM = 1
 ##################################################
 
 PHY = RHD
-
 HYDRO = True
 
 ##################################################
@@ -51,7 +51,8 @@ DIM = 2
 # ONLY IF PHY == RHD or RMHD
 ##################################################
 
-METRIC = Schwarzschild-ECG
+# User defined metric
+METRIC = User
 
 ##################################################
 # Equation of State (User, Ideal, Dust, Stiff)

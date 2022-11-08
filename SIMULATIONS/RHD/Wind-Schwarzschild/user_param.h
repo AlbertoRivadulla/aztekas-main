@@ -18,6 +18,8 @@
 
 #define RECONST            MC
 #define FLUX               HLL
+// Form of the grid: UNIFORM, LOGMESH, TORTOISE
+// lfac is a parameter for the logarithmic mesh
 #define GRID               LOGMESH
 #define lfac               1.0
 #define PRINT_EVOLV        TRUE

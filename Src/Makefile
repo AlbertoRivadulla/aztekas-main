@@ -173,17 +173,23 @@ include $(AZTPATH)/Src/physics/Makefile
 THREADS = $(shell grep '^core id' /proc/cpuinfo |sort -u|wc -l)
 
 FLAGS = -lm -fcommon -std=gnu99 -lgfortran
-# FLAGS = -lm -fcommon -std=gnu99 -L/opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/12/ -lgfortran
+COMPILER = gcc
 
-# Ad-hoc fix for compiling in my M1 Mac. I need to tell the compiler where the gcc libraries are found.
+# Ad-hoc fix for compiling in my Apple Silicon Mac. 
+# This tells the compiler where the libraries to link against are located, in order
+# to find the library gfortran.
 # Check the OS of the machine
 UNAME := $(shell uname)
 ifeq ($(UNAME),Darwin)
    # Check the architecture of the machine
    UNAME_M := $(shell uname -m)
    ifeq ($(UNAME_M),arm64)
-      # FLAGS += -L/opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/12/
-      FLAGS += -L/opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/current/
+      # Find the directory of the libraries (version-agnostic)
+      LIBS_DIR := $(wildcard /opt/homebrew/Cellar/gcc/*/lib/gcc/current/)
+      # Add this as a flag
+      FLAGS += -L$(LIBS_DIR)
+      # Change the compiler to clang
+      COMPILER = clang
    endif
 endif
 
@@ -191,7 +197,6 @@ ifneq ($(OMP_NUM),1)
    FLAGS += -fopenmp -lgomp
 endif
 
-COMPILER = gcc
 AZT_HEAD = $(AZTPATH)/Src/include
 HEADERS = -I$(AZT_HEAD) -I.
 EXEC = aztekas
@@ -229,5 +234,3 @@ all:
 	
 clean:
 	rm -f $(EXEC)
-
-###############################################

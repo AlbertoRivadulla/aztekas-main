@@ -29,6 +29,7 @@ void User_Boundaries(double *B)
          local_grid.x[1] = grid.X1[i];
          local_grid.x[2] = grid.X2[j];
 
+         // Values of the metric in the local grid
          Get_Metric_Components(&local_grid);
 
          if(grid.X2[j] >= M_PI_2 && i >= Nx1-gc)

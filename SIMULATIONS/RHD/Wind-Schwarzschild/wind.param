@@ -21,8 +21,7 @@ x2min = 0.0
 x3min = 0.0
 
 % Time parameters
-% tmax = 5000.0
-tmax = 5.0
+tmax = 5000.0
 timefile = 1.0
 cou = 0.25
 

@@ -53,7 +53,6 @@
 #define EF       3
 #define BL       4
 #define KS       5
-#define SCHW_ECG 6
 
 /* GRID */
 #define UNIFORM   0

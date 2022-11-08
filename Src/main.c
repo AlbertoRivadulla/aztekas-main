@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
     * Print final message with computing time
     */
    Ending_Message();
-                                                                                
+
    free(U);                                                                     
    free(grid.X1);                                                               
    free(grid.X2);                                                               
