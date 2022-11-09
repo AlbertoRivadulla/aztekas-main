@@ -84,7 +84,7 @@ int Cons2Prim(double *u, double *q)
          theta_0 = theta;
          count++;
 
-         if(count == 100000)
+         if(count == 200000)
          {
             printf("                                          \n");
             printf("Spend too much time in Newton-Rhapson.\n");

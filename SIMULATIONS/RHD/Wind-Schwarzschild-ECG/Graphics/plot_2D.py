@@ -90,14 +90,16 @@ pre = pre.T
  
 vx1 = U[4].reshape(Nx1,Nx2)
 vx1 = vx1.T
- 
+
 vx2 = U[5].reshape(Nx1,Nx2)
 vx2 = vx2.T
- 
-if len(U) == 7:
-    vx3 = U[6].reshape(Nx1,Nx2)
+
+sqrtFr = U[6].reshape( Nx1, Nx2 ).T
+
+if len(U) == 8:
+    vx3 = U[7].reshape(Nx1,Nx2)
     vx3 = vx3.T
- 
+
 # Mesh grid  
 nx1 = x1[::Nx2,:]
 nx2 = x2[:,::Nx1]
@@ -115,7 +117,8 @@ if COORD == 'SPHERICAL' or COORD == 'POLAR':
 
     # Compute the velocities
     # Multiply by the functions in the metric
-    vx1 *= np.sqrt(1 - 2/r)
+    # vx1 *= np.sqrt(1 - 2/r)
+    vx1 *= sqrtFr
     vx2 /= r
     # Transform to cartesian
     v = vx1 * np.cos(t) - np.sin(t) * vx2

@@ -75,22 +75,36 @@ void Output_ascii_int(int *itprint)
       }
    }
 #elif DIM == 2 || DIM == 4
+   gauge_ local_grid;
    for(i = gc; i <= Nx1-gc; i++)
-	 {
+   {
       for(j = gc; j <= Nx2-gc; j++)
       {
          fprintf(file,"%e %e ",grid.X1[i],grid.X2[j]);
+         /* for(n = 0; n < eq; n++) */
+         /* { */
+         /*    if(n < eq - 1) */
+         /*    { */
+         /*       fprintf(file,"%e ",U(n,i,j)); */
+         /*    } */
+         /*    if(n == eq - 1) */
+         /*    { */
+         /*       fprintf(file,"%e\n",U(n,i,j)); */
+         /*    } */
+         /* } */
+
+         ///////////////////////////////////
+         // Save the components of the velocity
          for(n = 0; n < eq; n++)
          {
-            if(n < eq - 1)
-            {
-               fprintf(file,"%e ",U(n,i,j));
-            }
-            if(n == eq - 1)
-            {
-               fprintf(file,"%e\n",U(n,i,j));
-            }
+            fprintf(file,"%e ",U(n,i,j));
          }
+         // Save the factor sqrt(f(r)) in the metric, needed to plot the velocities
+         local_grid.x[1] = grid.X1[i];
+         local_grid.x[2] = grid.X2[j];
+         Get_Metric_Components(&local_grid);
+         fprintf( file, "%e\n", sqrt(local_grid.gamma_con[0][0]) );
+         ///////////////////////////////////
       }
    }
 #elif DIM == 3

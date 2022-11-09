@@ -29,6 +29,9 @@ void Initial()
    gauge_ local_grid;
    velocity_0 = vinf;
 
+   // Load the ECG metric
+   Read_Interpolation_f_Metric();
+
 #if DIM == 2
 
    ////////////////////////////
@@ -47,8 +50,6 @@ void Initial()
 
          U(0,i,j) =  density_0;
          U(1,i,j) =  (K - 1.0)*U(0,i,j)*pow(velocity_0/Mach,2.0)/(K*(K - 1.0) - K*pow(velocity_0/Mach,2.0));
-         /* U(2,i,j) =  velocity_0*cos(grid.X2[j]); */
-         /* U(3,i,j) = -velocity_0*sin(grid.X2[j]); */
          U(2,i,j) =  velocity_0*cos(grid.X2[j])/sqrt(local_grid.gamma_con[0][0]);
          U(3,i,j) = -velocity_0*sin(grid.X2[j])/sqrt(local_grid.gamma_con[1][1]);
       }

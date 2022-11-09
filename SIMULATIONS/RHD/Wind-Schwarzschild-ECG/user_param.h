@@ -30,3 +30,26 @@
 #define vinf               0.5
 
 double density_0, pressure_0, velocity_0;
+
+//-----------------------------------------------------------------------------
+//    Variables and functions for the ECG black hole
+//-----------------------------------------------------------------------------
+
+double epsilon_cubic;
+
+// Struct for the data of an interpolation, constructed with a piecewise polynomial
+struct Interpolating_Piecewise_Poly
+{
+    double xmin;
+    double xmax;
+    int n_points;
+
+    double* coeffs;
+    double* limits;
+};
+
+// Global variable with the data of an interpolation for the function f(r) in the metric
+struct Interpolating_Piecewise_Poly interp_f_ECG;
+
+// Function to read the data for the interpolation
+void Read_Interpolation_f_Metric();

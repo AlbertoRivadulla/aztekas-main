@@ -26,28 +26,49 @@
         /Src/physics/RHD/Makefile
       This simply tells the compiler to compile the correct metric.c
 
+- Define the metric of ECG in 
+    /SIMULATIONS/RHD/Wind-Schwarzschild-ECG/user_metric.c
+
 - Plotting
     - I changed the script plot_2D.py in the Wind-Schwarzschild-ECG directory so 
       that the quiver and stream plots are symmetric.
+    - I modified the file 
+        Src/common/output.c
+      so it also outputs to the file sqrt(f(r)) at each position in the space.
+      This allows me to plot the velocities accurately with the script
+        Graphics/plot_2D.py
+      which I also modified, so it multiplies the radial component of the velocity
+      by this sqrt(f(r))
+    - In order to plot the velocities:
+        - In the output of the C code, write also the value of f(r) at each point. 
+          This is used to scale the radial velocity when plotting it in the Python script.
+
+
+################################################################################
+    IMPROVEMENTS TO DO
+################################################################################
+
+- Option for the interpolating polynomials to be of higher order.
+  I should change the functions for f(r) and f(r), but also Read_Interpolation_f_Metric.
+
+- Define the metric of ECG in
+    /Src/physics/RHD/Schwarzschild-ECG
+  so it can be used by other simulations.
+
+- De-allocate the memory used for the interpolation of f(r).
+
 
 ################################################################################
     TO DO
 ################################################################################
 
-- Define the metric of ECG in 
-    /SIMULATIONS/RHD/Wind-Schwarzschild-ECG/user_metric.c
-I could also define it in 
-    /Src/physics/RHD/Schwarzschild-ECG
-so it can be used by other simulations.
-
-- If I want to plot velocities:
-    - In the output, write also the components of the velocity multiplied by the functions
-    in the metric, so I don't have to do it in the python script.
-
-- Find how many times the method Gauge_Derivatives of the metric is called, by using prints
-    If it is called many times, maybe I could be able to call it just once, speeding up the computation.
-
-
+- .param files for different values of epsilon:
+    0.1, 1, 10, 100 (and maybe more)
+  In each case, x1min (the minimum value of the coordinate r) should change with 
+  the 
+    - Do this for different values of v_oo in each case (?)
+- Compute the accretion rate from the numerical results in each case.
+- Compute the compression ratio.
 
 
 ################################################################################
@@ -69,15 +90,18 @@ it is CYLINDRICAL or SPHERICAL the coordinate x3 is multiplied by PI.
 - In order to generate the plots and video, I copy the scripts frames and video_maker 
   in the directory where the output files are placed.
 
+
 ################################################################################
     QUESTIONS ABOUT THE CODE
 ################################################################################
 
 - In plot_2D.py:
-    - The variables u and v (the two components of the velocity) are not defined.
-    How should I compute them from the ones given?
     - In the spherical and cylindrical case, I think the labels are not correct,
     since the meshgrid is cartesian (although the original coordinates are angular and radial).
+
+- How do I compute the compression ratio?
+
+- Where does the horizon radius enter the computations?
 
 
 ################################################################################
