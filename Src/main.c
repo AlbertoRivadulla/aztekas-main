@@ -87,5 +87,10 @@ int main(int argc, char *argv[])
    free(grid.X2);                                                               
    free(grid.X3); 
 
+#ifdef INTERPOLATED_METRIC
+   // Free the resources of the interpolated metric, if it exists
+   Free_Interpolated_Metric();
+#endif
+
    return 0;
 }

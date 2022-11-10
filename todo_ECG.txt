@@ -28,20 +28,30 @@
 
 - Define the metric of ECG in 
     /SIMULATIONS/RHD/Wind-Schwarzschild-ECG/user_metric.c
+    - In order to free the resources of the metric at the end:
+        - I defined a function Free_Interpolated_Metric() in user_param.h and user_metric.c, 
+          in the directory of the simulation.
+          I also defined a preprocessor macro.
+          When this macro is defined, the function Free_Interpolated_Metric() is
+          called at the end of the main() function, in main.c.
 
 - Plotting
-    - I changed the script plot_2D.py in the Wind-Schwarzschild-ECG directory so 
-      that the quiver and stream plots are symmetric.
-    - I modified the file 
-        Src/common/output.c
-      so it also outputs to the file sqrt(f(r)) at each position in the space.
-      This allows me to plot the velocities accurately with the script
-        Graphics/plot_2D.py
-      which I also modified, so it multiplies the radial component of the velocity
-      by this sqrt(f(r))
-    - In order to plot the velocities:
-        - In the output of the C code, write also the value of f(r) at each point. 
-          This is used to scale the radial velocity when plotting it in the Python script.
+    - For plotting the velocities (only for DIM=2)
+        - I changed the script plot_2D.py in the Wind-Schwarzschild-ECG directory so 
+          that the quiver and stream plots are symmetric.
+        - I modified the file (only for DIM=2)
+            Src/common/output.c
+          so it also outputs to the file sqrt(f(r)) at each position in the space.
+          This allows me to plot the velocities accurately with the script
+            Graphics/plot_2D.py
+          which I also modified, so it multiplies the radial component of the velocity
+          by this sqrt(f(r)).
+          I also had to modify (only for DIM=2)
+            Src/common/restart.c
+          such that it ignores the last element in each line when it reads the output file.
+        - In order to plot the velocities:
+            - In the output of the C code, write also the value of f(r) at each point. 
+              This is used to scale the radial velocity when plotting it in the Python script.
 
 
 ################################################################################
@@ -55,20 +65,51 @@
     /Src/physics/RHD/Schwarzschild-ECG
   so it can be used by other simulations.
 
-- De-allocate the memory used for the interpolation of f(r).
-
+- Since the metric does not change in time, I could compute it only once at the beginning.
+  This would require modifying the structure of the code.
+    - Define another preprocessor macro, as a flag for this
+    - This is not easy, with the current state of the code, as the structs gauge_
+      and der_gauge_ only hold the values for one single point in the space. Therefore,
+      I would need to define an array of the (one per point in the grid), compute
+      all of them in the beginning and read them when required.
+    - Another possibility is to compute these arrays of gauge_ and der_gauge_ at the
+      beginning, when the metric is loaded.
+      Then, the functions Get_Metric_Components and Gauge_Derivatives would just
+      look up the values and return them, without need to compute.
+      I THINK THIS IS THE BEST CHOICE
 
 ################################################################################
     TO DO
 ################################################################################
 
 - .param files for different values of epsilon:
-    0.1, 1, 10, 100 (and maybe more)
+    5
+    20
+    500
+    (and maybe more)
   In each case, x1min (the minimum value of the coordinate r) should change with 
   the 
-    - Do this for different values of v_oo in each case (?)
-- Compute the accretion rate from the numerical results in each case.
+    - Do this for different values of v_inf in each case
+        v_inf = 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
+    - Do this for different values of the adiabatic index
+        K = 4/3 (1.33), 5/3 (1.66) (as in the paper)
+    - Do this for different values of the Mach number (?)
+        M = 5, 10
+        - Better take always M = 5, as in the paper.
+- Compute the accretion rate
+    - Check the function Mass_Accretion_Rate in the code!!
+    - Compute this on the fly, and stop the integration when a stationary state is reached.
+        - Implement this under a #ifdef COMPUTE_ACCRETION_RATE_WIND_SCH #endif
+            - This is not the best way to do it!
+        - In each iteration, before writing the results to the .dat file compute the accretion rate.
+          Append it, with the value of time, to the end of a file called accretion_rate.dat.
+          Keep track of the last five values
+            - If it doesn't change more than 1% from the average, stop the computation, as
+              a stationary state has been reached.
+    - Reproduce figure 6 of 1906.04923
+    - Program to compute this from a list of files.
 - Compute the compression ratio.
+
 
 
 ################################################################################

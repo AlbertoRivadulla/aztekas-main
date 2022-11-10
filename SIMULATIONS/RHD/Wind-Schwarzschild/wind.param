@@ -3,13 +3,13 @@ outputdirectory = ./prueba/
 outputfile      = wind_ 
 
 % RESTART SIMULATION (1 -> true, 0 -> false)
-restart_simulation = 0
-restartfile = ./Shock/dx1_10.dat
-restart_filecount = 10
+restart_simulation = 1
+restartfile = ./prueba/wind_3.dat
+restart_filecount = 3
 
 % Define mesh
-Nx1 = 200
-Nx2 = 200
+Nx1 = 20
+Nx2 = 20
 Nx3 = 0
 
 % Define domain limits

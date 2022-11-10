@@ -31,9 +31,15 @@
 
 double density_0, pressure_0, velocity_0;
 
+
 //-----------------------------------------------------------------------------
 //    Variables and functions for the ECG black hole
 //-----------------------------------------------------------------------------
+
+#define INTERPOLATED_METRIC
+
+// Function to clear the resources of the interpolated metric
+void Free_Interpolated_Metric();
 
 double epsilon_cubic;
 

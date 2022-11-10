@@ -68,7 +68,7 @@ void Initial()
          local_grid.x[1] = grid.X1[i];
          local_grid.x[2] = grid.X2[j];
 
-         Get_Metric_Components(&local_grid);
+         Get_Metric_Components( &local_grid );
 
          U(0,i,j) =  density_0;
          U(1,i,j) =  (K - 1.0)*U(0,i,j)*pow(velocity_0/Mach,2.0)/(K*(K - 1.0) - K*pow(velocity_0/Mach,2.0));

@@ -105,6 +105,7 @@ void Source_Terms(double *s, double *u, gauge_ *local_grid)
 
    Gauge_Derivatives(&der,local_grid);
 
+
 //   lapse     = local_grid->lapse;
 //   beta[0]   = local_grid->beta_con[0];
 //   beta[1]   = local_grid->beta_con[1];

@@ -22,6 +22,7 @@ void Prim2Sources(double *s, int *I)
 #if USER_SOURCE_TERMS == TRUE
    double user_S[10];
 #endif
+
    gauge_ local_grid;
 
    local_grid.x[0] = grid.time;

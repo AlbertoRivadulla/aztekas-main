@@ -24,7 +24,8 @@ AZTPATH = $(AZTEKAS_PATH)
 ##################################################
 
 # OMP_NUM = 1
-OMP_NUM = 6
+OMP_NUM = 2
+# OMP_NUM = 6
 
 ##################################################
 # Physics (HD)
@@ -53,6 +54,7 @@ DIM = 2
 
 # User defined metric
 METRIC = User
+# METRIC = Schwarzschild
 
 ##################################################
 # Equation of State (User, Ideal, Dust, Stiff)

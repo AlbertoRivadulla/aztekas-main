@@ -26,8 +26,10 @@ int numfile;
 int check_param;
 int restart_simulation, restart_filecount;
 double timefile;
-char paramfile_name[50], outputdirectory[50], outputfile[50];
-char restartfile[50];
+// char paramfile_name[50], outputdirectory[50], outputfile[50];
+char paramfile_name[100], outputdirectory[100], outputfile[100];
+// char restartfile[50];
+char restartfile[100];
 
 void Alternative_Termination();
 

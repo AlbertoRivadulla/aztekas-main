@@ -12,9 +12,12 @@ void Output_ascii_int(int *itprint)
 {
    FILE *file;
    int n, i, j, k;
-   char ext[50];
-   char dat[50];
-   char archivo[50];
+   /* char ext[50]; */
+   /* char dat[50]; */
+   /* char archivo[50]; */
+   char ext[100];
+   char dat[100];
+   char archivo[100];
    int num;
 
    num = *itprint;

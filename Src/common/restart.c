@@ -10,6 +10,9 @@
 
 void Restart()
 {
+   // Run the initial setup of the simulation, just in case
+   Initial();
+
    FILE *file;
    int i, j, k, idum, size;
    double dum;
@@ -66,8 +69,10 @@ void Restart()
    {
       for(j = gc; j <= Nx2-gc; j++)
       {
-         idum = fscanf(file,"%lf %lf %lf %lf %lf %lf\n",&dum,&dum,\
-         &U(RHO,i,j),&U(PRE,i,j),&U(VX1,i,j),&U(VX2,i,j));
+         /* idum = fscanf(file,"%lf %lf %lf %lf %lf %lf\n",&dum,&dum,\ */
+         /* &U(RHO,i,j),&U(PRE,i,j),&U(VX1,i,j),&U(VX2,i,j)); */
+         idum = fscanf( file, "%lf %lf %lf %lf %lf %lf %lf\n", &dum, &dum,\
+         &U(RHO,i,j), &U(PRE,i,j), &U(VX1,i,j), &U(VX2,i,j), &dum );
       }
    }
 
@@ -118,6 +123,7 @@ void Restart()
 #endif
 
    fclose(file);
+
 
    if(restart_filecount == 0)
    {

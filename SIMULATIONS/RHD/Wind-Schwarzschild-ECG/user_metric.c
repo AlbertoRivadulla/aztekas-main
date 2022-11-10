@@ -43,6 +43,8 @@ void Read_Interpolation_f_Metric()
                 polynomial_file_path);
         exit(EXIT_FAILURE);
     }
+    else
+        printf("Reading the metric coefficients from %s\n\n", polynomial_file_path);
  
     // Count the lines in the file
     // This is equal to the number of intervals in the interpolation
@@ -103,6 +105,15 @@ void Read_Interpolation_f_Metric()
  
     // Close the file
     fclose( polynomial_file );
+
+    printf( "%f %f\n", dx1, dx2 );
+}
+
+// Function to clear the resources of the interpolated metric
+void Free_Interpolated_Metric()
+{
+    free( interp_f_ECG.limits );
+    free( interp_f_ECG.coeffs );
 }
 
 // Function f(r) in the metric
@@ -112,19 +123,11 @@ double f_Metric( const double M, const double r )
     {
         // Compute the variable Z
         double Z = 2. * M / r;
- 
-        /* printf("%f -- ", Z); */
 
         // Find which interval Z belongs to
         int i_interval = 0;
         while ( Z > interp_f_ECG.limits[ i_interval + 1 ] && i_interval < interp_f_ECG.n_points - 1 )
             i_interval++;
-
-        /* printf("%d -- ", i_interval); */
-        /* for ( int i = 0; i < 4; ++i ) */
-        /*    printf("%f # ", interp_f_ECG.coeffs[i_interval*5 + i]); */
-
-        /* printf("%f -- ", Z); */
  
         // Compute the value with the cubic polynomial in that interval
         return   interp_f_ECG.coeffs[i_interval*5 + 0] 
