@@ -17,6 +17,7 @@
 void Analysis()
 {
 #if MDOT == TRUE
+
    Mass_Accretion_Rate(U);
 #endif
 

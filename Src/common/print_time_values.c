@@ -16,6 +16,7 @@ void Print_Time_Values(double *tprint, double *dtprint, int *itprint)
    #if ANALYSIS == TRUE
    Analysis(U);
    #endif
+
    #if MDOT == TRUE
    Mass_Accretion_Rate(U);
    #endif

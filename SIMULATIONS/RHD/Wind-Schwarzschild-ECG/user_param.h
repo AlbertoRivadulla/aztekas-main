@@ -33,6 +33,37 @@ double density_0, pressure_0, velocity_0;
 
 
 //-----------------------------------------------------------------------------
+//    Variables and functions for computing the mass accretion rate
+//-----------------------------------------------------------------------------
+
+#define ANALYSIS                FALSE
+#define MDOT                    TRUE
+#define MDOT_END                TRUE
+#define MDOT_DATA               1.0e+04
+int Mdot_end;
+double Mdot_0;
+double Mdot_tprint;
+
+void Mass_Accretion_Rate(double *B);
+double rs(double K, double c_s);
+
+double Mdot_Mean;
+double cs, Temp;
+double rB, tB;
+char last[50];
+
+int count;
+int plus;
+int minus;
+int restart_file;
+double Mdot_Max;
+double Mdot_Min;
+double MDOT_ERR;
+double MDOT_TIME;
+char eqstate[50];
+
+
+//-----------------------------------------------------------------------------
 //    Variables and functions for the ECG black hole
 //-----------------------------------------------------------------------------
 

@@ -58,6 +58,16 @@ int User_Parameters(char const *paramfile_name)
             {
                velocity_0 = atof(t_value);
             }
+
+            if(strcmp(t_key,"MDOT_ERR")==0)
+            {
+               MDOT_ERR = atof(t_value);
+            }
+
+            if(strcmp(t_key,"Mdot_tprint")==0)
+            {
+               Mdot_tprint = atof(t_value);
+            }
          }
       }
             
@@ -78,4 +88,5 @@ int User_Parameters(char const *paramfile_name)
 
 int Potencia()
 {
+   return 0;
 }

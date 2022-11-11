@@ -16,7 +16,7 @@ void Termination()
 void Alternative_Termination()
 {
 #if MDOT == TRUE                                                          
-   if(Mdot_end == TRUE)                                                         
+   if (Mdot_end == TRUE)                                                         
    {   
       printf("\n");
       printf("The mean value of Mdot remain constant in %e\n",MDOT_ERR);

@@ -35,6 +35,13 @@
           When this macro is defined, the function Free_Interpolated_Metric() is
           called at the end of the main() function, in main.c.
 
+- Compute the mass accretion rate
+    - This is done in the file, inside the simulation folder:
+        accretion_rate.c
+    - I modified the way that it is computed, removing some constants.
+        - I removed some multiplicative constants that I think should not be there,
+          when updating the variable Mdot.
+
 - Plotting
     - For plotting the velocities (only for DIM=2)
         - I changed the script plot_2D.py in the Wind-Schwarzschild-ECG directory so 
@@ -52,6 +59,15 @@
         - In order to plot the velocities:
             - In the output of the C code, write also the value of f(r) at each point. 
               This is used to scale the radial velocity when plotting it in the Python script.
+
+- Bash script to run several simulations in a row.
+    - This is the script 
+        run_simulations.sh
+    - Compile Aztekas for the different values of v_inf
+      I placed these in ./aztekas_binaries
+    - Different .param files for the simulations
+      I placed these in ./paramfiles_ECG
+
 
 
 ################################################################################
@@ -88,27 +104,16 @@
     500
     (and maybe more)
   In each case, x1min (the minimum value of the coordinate r) should change with 
-  the 
+  the horizon radius, as 2.5 r_h
     - Do this for different values of v_inf in each case
         v_inf = 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
     - Do this for different values of the adiabatic index
         K = 4/3 (1.33), 5/3 (1.66) (as in the paper)
-    - Do this for different values of the Mach number (?)
-        M = 5, 10
-        - Better take always M = 5, as in the paper.
-- Compute the accretion rate
-    - Check the function Mass_Accretion_Rate in the code!!
-    - Compute this on the fly, and stop the integration when a stationary state is reached.
-        - Implement this under a #ifdef COMPUTE_ACCRETION_RATE_WIND_SCH #endif
-            - This is not the best way to do it!
-        - In each iteration, before writing the results to the .dat file compute the accretion rate.
-          Append it, with the value of time, to the end of a file called accretion_rate.dat.
-          Keep track of the last five values
-            - If it doesn't change more than 1% from the average, stop the computation, as
-              a stationary state has been reached.
-    - Reproduce figure 6 of 1906.04923
-    - Program to compute this from a list of files.
+        - I only do it for K = 4/3
+    - Do this only for a value of the Mach number:
+        M = 5
 - Compute the compression ratio.
+
 
 
 

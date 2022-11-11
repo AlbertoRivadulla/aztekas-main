@@ -24,8 +24,7 @@ AZTPATH = $(AZTEKAS_PATH)
 ##################################################
 
 # OMP_NUM = 1
-OMP_NUM = 2
-# OMP_NUM = 6
+OMP_NUM = 3
 
 ##################################################
 # Physics (HD)
@@ -86,7 +85,9 @@ INT = Standard
 
 USR = initial.c \
       user_boundaries.c \
-		user_input.c 
+	  user_input.c \
+	  accretion_rate.c \
+	  setup_interpolated_metric.c
 
 ##################################################
 # Include a global Makefile in the /Src/ 

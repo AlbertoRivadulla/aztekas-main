@@ -32,6 +32,10 @@ void Initial()
    // Load the ECG metric
    Read_Interpolation_f_Metric();
 
+   // Set the program to end when a stationary state is reached for the accretion rate
+   Mdot_end = FALSE;
+   /* Mdot_end = 0; */
+
 #if DIM == 2
 
    ////////////////////////////
