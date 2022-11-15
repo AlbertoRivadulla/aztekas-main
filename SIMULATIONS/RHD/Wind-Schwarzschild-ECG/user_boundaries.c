@@ -26,6 +26,9 @@ void User_Boundaries(double *B)
    {
       for(j = 0; j <= Nx2; j++)
       {
+#ifdef INTERPOLATED_METRIC
+         local_grid.I[0] = i;
+#endif
          local_grid.x[1] = grid.X1[i];
          local_grid.x[2] = grid.X2[j];
 

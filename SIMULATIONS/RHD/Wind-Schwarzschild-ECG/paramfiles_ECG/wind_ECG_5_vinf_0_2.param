@@ -3,27 +3,27 @@ outputdirectory = ./results_ECG/K_4over3/vinf_0_2/eps_5/
 outputfile      = wind_ 
 
 % RESTART SIMULATION (1 -> true, 0 -> false)
-restart_simulation = 0
-restartfile = ./results_ECG/K_5over3/vinf_0_2/eps_20/wind_1.dat
-restart_filecount = 1
+restart_simulation = 1
+restartfile = ./results_ECG/K_4over3/vinf_0_2/eps_5/wind_16.dat
+restart_filecount = 16
 
 % Define mesh
-Nx1 = 200
-Nx2 = 200
+Nx1 = 300
+Nx2 = 300
 Nx3 = 0
 
 % Define domain limits
 % The minimum value of r (x1) is:
 %   x1min = 2.5 r_h/2 = 2.5 / Z_h
 x1min = 3.9492555066890738
-x1max = 40.0
+x1max = 63.18808810702518
 x2min = 0.0
 x2max = 1.0
 x3min = 0.0
 x3max = 1.0 
 
 % Time parameters
-tmax = 1000.0
+tmax = 500.0
 timefile = 10.0
 cou = 0.25
 

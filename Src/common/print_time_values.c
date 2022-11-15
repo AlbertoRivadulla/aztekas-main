@@ -23,7 +23,24 @@ void Print_Time_Values(double *tprint, double *dtprint, int *itprint)
 
    if(grid.time >= *tprint || CHECK_NAN == TRUE)
    {
-      printf("Time = %e, dt = %e\n",grid.time,dt);
+      /* printf("Time = %e, dt = %e\n",grid.time,dt); */
+
+      int time_sec;
+      int hr, min, sec;
+      #ifdef _OPENMP
+         time_sec = (int)(omp_get_wtime() - start);
+         hr       = time_sec/3600;
+         min      = (time_sec%3600)/60;
+         sec      = (time_sec%60)%60;
+      #else
+         time_sec = (int)((double)(clock()-start)/CLOCKS_PER_SEC);
+         hr       = time_sec/3600;
+         min      = (time_sec%3600)/60;
+         sec      = (time_sec%60)%60;
+      #endif
+      printf("Time = %e, dt = %e, Running time = %d hr : %d min : %d sec\n",\
+            grid.time,dt,hr,min,sec);
+
       if(binary == TRUE)
       {
          Output_bin(itprint);

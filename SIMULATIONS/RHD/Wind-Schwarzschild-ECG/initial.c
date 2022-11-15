@@ -32,6 +32,9 @@ void Initial()
    // Load the ECG metric
    Read_Interpolation_f_Metric();
 
+   // Compute the values of f(r) and f'(r) in the grid
+   Compute_f_In_Grid();
+
    // Set the program to end when a stationary state is reached for the accretion rate
    Mdot_end = FALSE;
    /* Mdot_end = 0; */
@@ -46,6 +49,9 @@ void Initial()
    {
       for(j = 0; j <= Nx2; j++)
       {
+#ifdef INTERPOLATED_METRIC
+         local_grid.I[0] = i;
+#endif
          local_grid.x[1] = grid.X1[i];
          local_grid.x[2] = grid.X2[j];
 

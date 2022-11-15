@@ -40,6 +40,12 @@ void Surface_Volume()
    {
       for(j = 0; j <= Nx2; j++)
       {
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i;
+         surf_p.I[0] = i + Nx1 + 1;
+         surf_m.I[0] = i + 2 * Nx1 + 2;
+#endif
+
          vol.x[1]    = grid.X1[i];
          surf_p.x[1] = grid.X1p[i];
          surf_m.x[1] = grid.X1m[i];
@@ -61,6 +67,12 @@ void Surface_Volume()
  
          S1p(i,j) = surf_p.dety/vol.dety;
          S1m(i,j) = surf_m.dety/vol.dety;
+
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i;
+         surf_p.I[0] = i;
+         surf_m.I[0] = i;
+#endif
  
          vol.x[1]    = grid.X1[i];
          surf_p.x[1] = grid.X1[i];

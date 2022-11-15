@@ -92,6 +92,9 @@ void Prim2Cons_All(double *q, double *u)
    {
       for(int i = 0; i <= Nx1-0; i++)
       {
+#ifdef INTERPOLATED_METRIC
+         local_grid.I[0] = i;
+#endif
          local_grid.x[0] = grid.time;
          local_grid.x[1] = grid.X1[i];
          local_grid.x[2] = grid.X2[j];

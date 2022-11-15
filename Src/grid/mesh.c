@@ -71,9 +71,9 @@ int Mesh()
       grid.X2m[j] = x2min + (j-0.5-gc)*(dx2);
    }
    
-#if HYDRO == TRUE
-   Surface_Volume();
-#endif
+/* #if HYDRO == TRUE */
+/*    Surface_Volume(); */
+/* #endif */
 
 #elif DIM == 3 
    

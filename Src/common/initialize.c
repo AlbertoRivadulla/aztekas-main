@@ -56,6 +56,10 @@ void Init_Simulation(double *tprint, int *itprint)
       *itprint = 0;    // Initialize number of files
    }
 
+#if HYDRO == TRUE
+   Surface_Volume();
+#endif
+
    U0 = U;        // Save U(t_n), initial or previous step vector
    Boundaries(U); // Fill with correct boundary conditions.
 }

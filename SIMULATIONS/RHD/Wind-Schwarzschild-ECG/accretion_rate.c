@@ -125,6 +125,9 @@ void Mass_Accretion_Rate(double *B)
                                                                                          
          #elif DIM == 2 || DIM == 4                                                      
                                                                                          
+#ifdef INTERPOLATED_METRIC
+            local_grid.I[0] = i;
+#endif
             local_grid.x[1] = grid.X1[i];                                                
             local_grid.x[2] = grid.X2[j];                                                
             local_grid.x[3] = 0.0;                                                       
@@ -328,6 +331,9 @@ void Mass_Accretion_Rate(double *B)
       Vol   = Nx1-2*gc-9; // Number of radial points
       for(int i = gc + 5; i <= Nx1-gc-5; i++)
       {
+#ifdef INTERPOLATED_METRIC
+         local_grid.I[0] = i;
+#endif
          local_grid.x[1] = grid.X1[i];                                                
          local_grid.x[2] = 0.0;                                                       
          local_grid.x[3] = 0.0;                                                       

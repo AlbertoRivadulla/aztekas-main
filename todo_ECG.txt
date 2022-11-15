@@ -34,6 +34,33 @@
           I also defined a preprocessor macro.
           When this macro is defined, the function Free_Interpolated_Metric() is
           called at the end of the main() function, in main.c.
+    - In order to make the computations faster, I evaluate at the beginning the function f(r)
+      and its derivative at each point in the grid. Then, when calling Get_Metric_Components and
+      Gauge_Derivatives these values are retrieved.
+        - When doing this, each time the variable gauge_ local_grid is defined I had
+          to set also the index of the point in the radial direction.
+            ./Src/fluxes/sources.c
+            ./Src/fluxes/fluxes.c
+            ./Src/common/output.c
+            ./Src/physics/RHD/.q2uvector.c
+            ./Src/physics/RHD/surface_volume.c
+            ./Src/physics/RHD/HYDRO/stiff_q2uvector.c
+            ./Src/physics/RHD/HYDRO/surface_volume.c
+            ./Src/physics/RHD/HYDRO/prim2cons.c
+            ./Src/physics/RHD/HYDRO/new_q2uvector.c
+            ./Src/physics/RHD/HYDRO/cons2prim.c
+            ./SIMULATIONS/RHD/Wind-Schwarzschild-ECG/accretion_rate.c
+            ./SIMULATIONS/RHD/Wind-Schwarzschild-ECG/initial.c
+            ./SIMULATIONS/RHD/Wind-Schwarzschild-ECG/user_boundaries.c
+          I did this also where Gauge_Derivatives is called
+            ./Src/physics/RHD/HYDRO/sources.c
+          This index goes from 0 to Nx1
+        - Write a check when retrieving the value of the metric at the point to see
+          if the index of the radius is correct.
+        - I had to move the call to Surface_Volume in Mesh() to the end of Init_Simulation(),
+          so it is run after the metric has been loaded and computed.
+        - The values of f(r) and f'(r) are computed at the beginning, in the function 
+          Compute_f_In_Grid() that I defined in the source files of the simulation.
 
 - Compute the mass accretion rate
     - This is done in the file, inside the simulation folder:
@@ -113,7 +140,42 @@
     - Do this only for a value of the Mach number:
         M = 5
 - Compute the compression ratio.
+    - Emilio should tell me how to do this
+    - Take the density at infinity and at some reference value of the radius (proportional
+      to the horizon radius).
 
+- Improve the computations
+    - Try to reduce the minimum radius
+        - The integration does not converge if I decrease it too much.
+        - Study the stability of the system. 
+          Does the accretion rate change much when this minimum radius is modified?
+    - Once the computation works in ECG, increase the resolution
+
+- Expected values of Mdot / Mdot_BHL
+    -------------------------------------------------------------------------------------
+    | epsilon \ vinf  | 0.2                 | 0.5                 | 0.9                 |
+    -------------------------------------------------------------------------------------
+    | 0               | 1.33026 / XXXXXXX   | 3.26888 / XXXXXXX   | 15.4367 / XXXXXXX   |
+    -------------------------------------------------------------------------------------
+    | 5               | 1.33041 / XXXXXXX   | 3.57748 / XXXXXXX   | 30.1309 / XXXXXXX   |
+    -------------------------------------------------------------------------------------
+    | 20              | 1.33075 / XXXXXXX   | 4.80481 / XXXXXXX   | 47.7397 / XXXXXXX   |
+    -------------------------------------------------------------------------------------
+    | 500             | 1.34168 / XXXXXXX   | 14.7610 / XXXXXXX   | 171.291 / XXXXXXX   |
+    -------------------------------------------------------------------------------------
+
+- Expected values of log( Mdot / Mdot_0 )
+    -------------------------------------------------------------------------------------
+    | epsilon \ vinf  | 0.2                 | 0.5                 | 0.9                 |
+    -------------------------------------------------------------------------------------
+    | 0               | 2.21694 / XXXXXXX   | 1.41749 / XXXXXXX   | 1.32699 / XXXXXXX   |
+    -------------------------------------------------------------------------------------
+    | 5               | 2.21699 / XXXXXXX   | 1.45667 / XXXXXXX   | 1.61744 / XXXXXXX   |
+    -------------------------------------------------------------------------------------
+    | 20              | 2.21710 / XXXXXXX   | 1.58477 / XXXXXXX   | 1.81731 / XXXXXXX   |
+    -------------------------------------------------------------------------------------
+    | 500             | 2.22066 / XXXXXXX   | 2.07221 / XXXXXXX   | 2.37216 / XXXXXXX   |
+    -------------------------------------------------------------------------------------
 
 
 
@@ -129,6 +191,7 @@ it is CYLINDRICAL or SPHERICAL the coordinate x3 is multiplied by PI.
 - The parameter gc (number of ghost cells) is defined as a preprocessor macro in
     Src/Makefile
 - Output file:
+
     - The first few lines are information on the domain and time of the current frame
     - The following columns are the values in the grid of:
         DIM = 2: x1, x2, density, pressure (?), v_x, v_y
@@ -147,7 +210,8 @@ it is CYLINDRICAL or SPHERICAL the coordinate x3 is multiplied by PI.
 
 - How do I compute the compression ratio?
 
-- Where does the horizon radius enter the computations?
+- Do I have to multiply or divide the mass accretion rate by something (e.g. the lapse function)
+  to obtain the same results as the paper?
 
 
 ################################################################################

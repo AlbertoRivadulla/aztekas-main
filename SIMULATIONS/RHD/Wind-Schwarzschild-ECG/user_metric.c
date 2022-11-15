@@ -1,51 +1,54 @@
 #include"main.h"
 
-// Function f(r) in the metric
-double f_Metric( const double M, const double r )
-{
-    if ( epsilon_cubic > 0. )
-    {
-        // Compute the variable Z
-        double Z = 2. * M / r;
-
-        // Find which interval Z belongs to
-        int i_interval = 0;
-        while ( Z > interp_f_ECG.limits[ i_interval + 1 ] && i_interval < interp_f_ECG.n_points - 1 )
-            i_interval++;
- 
-        // Compute the value with the cubic polynomial in that interval
-        return   interp_f_ECG.coeffs[i_interval*5 + 0] 
-               + interp_f_ECG.coeffs[i_interval*5 + 1]*Z 
-               + interp_f_ECG.coeffs[i_interval*5 + 2]*Z*Z
-               + interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z*Z;
-    }
-
-    // Solution in GR
-    return 1. - 2. * M / r;
-}
-
-// Derivative of f(r) in the metric
-double f_Prime_Metric( const double M, const double r )
-{
-    if ( epsilon_cubic > 0. )
-    {
-        // Compute the variable Z
-        double Z = 2. * M / r;
-
-        // Find which interval u belongs to
-        int i_interval = 0;
-        while ( Z > interp_f_ECG.limits[ i_interval + 1 ] && i_interval < interp_f_ECG.n_points - 1 )
-            i_interval++;
-
-        // Compute the value with the cubic polynomial in that interval
-        return - Z*Z * 0.5 / M * ( interp_f_ECG.coeffs[i_interval*5 + 1]
-                                   + 2. * interp_f_ECG.coeffs[i_interval*5 + 2]*Z
-                                   + 3. * interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z );
-    }
-
-    // Solution in GR
-    return 2. * M / (r * r);
-}
+/* // Function f(r) in the metric */
+/* double f_Metric( const double M, const double r ) */
+/* { */
+/*     if ( epsilon_cubic > 0. ) */
+/*     { */
+/*         // Compute the variable Z */
+/*         double Z = 2. * M / r; */
+/*  */
+/*         // Find which interval Z belongs to */
+/*         int i_interval = 0; */
+/*         while ( Z > interp_f_ECG.limits[ i_interval + 1 ] && i_interval < interp_f_ECG.n_points - 1 ) */
+/*             i_interval++; */
+/*   */
+/*         // Compute the value with the cubic polynomial in that interval */
+/*         return   interp_f_ECG.coeffs[i_interval*5 + 0]  */
+/*                + interp_f_ECG.coeffs[i_interval*5 + 1]*Z  */
+/*                + interp_f_ECG.coeffs[i_interval*5 + 2]*Z*Z */
+/*                + interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z*Z; */
+/*     } */
+/*  */
+/*     // Solution in GR */
+/*     return 1. - 2. * M / r; */
+/* } */
+/*  */
+/* // Derivative of f(r) in the metric */
+/* double f_Prime_Metric( const double M, const double r ) */
+/* { */
+/*     if ( epsilon_cubic > 0. ) */
+/*     { */
+/*         // Compute the variable Z */
+/*         double Z = 2. * M / r; */
+/*  */
+/*         // Find which interval u belongs to */
+/*         int i_interval = 0; */
+/*         while ( Z > interp_f_ECG.limits[ i_interval + 1 ] && i_interval < interp_f_ECG.n_points - 1 ) */
+/*             i_interval++; */
+/*  */
+/*         // Compute the value with the cubic polynomial in that interval */
+/*         double aux = interp_f_ECG.coeffs[i_interval*5 + 1] */
+/*                                    + 2. * interp_f_ECG.coeffs[i_interval*5 + 2]*Z */
+/*                                    + 3. * interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z; */
+/*         return - Z*Z * 0.5 / M * ( interp_f_ECG.coeffs[i_interval*5 + 1] */
+/*                                    + 2. * interp_f_ECG.coeffs[i_interval*5 + 2]*Z */
+/*                                    + 3. * interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z ); */
+/*     } */
+/*  */
+/*     // Solution in GR */
+/*     return 2. * M / (r * r); */
+/* } */
 
 void Get_Metric_Components(gauge_ *local_grid)
 {
@@ -64,7 +67,8 @@ void Get_Metric_Components(gauge_ *local_grid)
    double M     = Black_Hole_Mass;
 
    // Compute the value of f(r) at this point
-   double f_Metric_val = f_Metric( M, r );
+   /* double f_Metric_val = f_Metric( M, r ); */
+   double f_Metric_val = f_vals[ local_grid->I[0] ];
 
    local_grid->lapse = sqrt( f_Metric_val );
 
@@ -106,8 +110,10 @@ void Gauge_Derivatives(der_gauge_ *der, gauge_ *local_grid)
    double M     = Black_Hole_Mass;
 
    // Compute f(r) and its derivative f'(r) at this point
-   double f_Metric_val       = f_Metric( M, r );
-   double f_Prime_Metric_val = f_Prime_Metric( M, r );
+   /* double f_Metric_val       = f_Metric( M, r ); */
+   /* double f_Prime_Metric_val = f_Prime_Metric( M, r ); */
+   double f_Metric_val = f_vals[ local_grid->I[0] ];
+   double f_Prime_Metric_val = f_prime_vals[ local_grid->I[0] ];
 
    der->dlapse[0] = 0.5 * f_Prime_Metric_val / sqrt( f_Metric_val );
    der->dlapse[1] = 0.0;

@@ -124,6 +124,9 @@ int Cons2Prim(double *u, double *q)
    {
       for(int j = gc; j <= Nx2-gc; j++)
       {
+#ifdef INTERPOLATED_METRIC
+         local_grid.I[0] = i;
+#endif
          local_grid.x[0] = grid.time;
          local_grid.x[1] = grid.X1[i];
          local_grid.x[2] = grid.X2[j];

@@ -103,6 +103,9 @@ void Output_ascii_int(int *itprint)
             fprintf(file,"%e ",U(n,i,j));
          }
          // Save the factor sqrt(f(r)) in the metric, needed to plot the velocities
+#ifdef INTERPOLATED_METRIC
+         local_grid.I[0] = i;
+#endif
          local_grid.x[1] = grid.X1[i];
          local_grid.x[2] = grid.X2[j];
          Get_Metric_Components(&local_grid);

@@ -44,7 +44,7 @@ void Read_Interpolation_f_Metric()
         exit(EXIT_FAILURE);
     }
     else
-        printf("Reading the metric coefficients from %s\n\n", polynomial_file_path);
+        printf("Reading the metric coefficients from %s\n", polynomial_file_path);
  
     // Count the lines in the file
     // This is equal to the number of intervals in the interpolation
@@ -107,9 +107,103 @@ void Read_Interpolation_f_Metric()
     fclose( polynomial_file );
 }
 
+// Function f(r) in the metric
+double f_Metric_From_Interp( const double M, const double r )
+{
+    if ( epsilon_cubic > 0. )
+    {
+        // Compute the variable Z
+        double Z = 2. * M / r;
+
+        // Find which interval Z belongs to
+        int i_interval = 0;
+        while ( Z > interp_f_ECG.limits[ i_interval + 1 ] && i_interval < interp_f_ECG.n_points - 1 )
+            i_interval++;
+ 
+        // Compute the value with the cubic polynomial in that interval
+        return   interp_f_ECG.coeffs[i_interval*5 + 0] 
+               + interp_f_ECG.coeffs[i_interval*5 + 1]*Z 
+               + interp_f_ECG.coeffs[i_interval*5 + 2]*Z*Z
+               + interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z*Z;
+    }
+
+    // Solution in GR
+    return 1. - 2. * M / r;
+}
+
+// Derivative of f(r) in the metric
+double f_Prime_Metric_From_Interp( const double M, const double r )
+{
+    if ( epsilon_cubic > 0. )
+    {
+        // Compute the variable Z
+        double Z = 2. * M / r;
+
+        // Find which interval u belongs to
+        int i_interval = 0;
+        while ( Z > interp_f_ECG.limits[ i_interval + 1 ] && i_interval < interp_f_ECG.n_points - 1 )
+            i_interval++;
+
+        // Compute the value with the cubic polynomial in that interval
+        double aux = interp_f_ECG.coeffs[i_interval*5 + 1]
+                                   + 2. * interp_f_ECG.coeffs[i_interval*5 + 2]*Z
+                                   + 3. * interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z;
+        return - Z*Z * 0.5 / M * ( interp_f_ECG.coeffs[i_interval*5 + 1]
+                                   + 2. * interp_f_ECG.coeffs[i_interval*5 + 2]*Z
+                                   + 3. * interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z );
+    }
+
+    // Solution in GR
+    return 2. * M / (r * r);
+}
+
+// Function to compute the values of f(r) and f'(r) in the grid
+void Compute_f_In_Grid()
+{
+    printf("Computing f(r) and f'(r) in the grid\n\n");
+    // Allocate the arrays
+    f_vals       = (double*)malloc( (Nx1 + 1) * 3 * sizeof( double ) );
+    f_prime_vals = (double*)malloc( (Nx1 + 1) * 3 * sizeof( double ) );
+
+    // Iterate over the grid
+    for ( int i = 0; i <= Nx1; ++i )
+    {
+        // Compute the values in the grid
+        f_vals[ i + 0 ]       = f_Metric_From_Interp( Black_Hole_Mass, grid.X1[ i ] );
+        f_prime_vals[ i + 0 ] = f_Prime_Metric_From_Interp( Black_Hole_Mass, grid.X1[ i ] );
+
+        // Compute the values in the grid with positive displacement
+        f_vals[ i + Nx1 + 1 ]       = f_Metric_From_Interp( Black_Hole_Mass, grid.X1p[ i ] );
+        f_prime_vals[ i + Nx1 + 1 ] = f_Prime_Metric_From_Interp( Black_Hole_Mass, grid.X1p[ i ] );
+
+        // Compute the values in the grid with negative displacement
+        f_vals[ i + 2*Nx1 + 2 ]       = f_Metric_From_Interp( Black_Hole_Mass, grid.X1m[ i ] );
+        f_prime_vals[ i + 2*Nx1 + 2 ] = f_Prime_Metric_From_Interp( Black_Hole_Mass, grid.X1m[ i ] );
+
+    }
+
+
+    printf("\n\n{");
+    for ( int i = 0; i < Nx1; ++i )
+    {
+        printf("{%lf,%lf},", grid.X1m[ i ], f_vals[ i + 2*Nx1 + 2 ]);
+    }
+    printf("}\n\n");
+
+    printf("\n\n{");
+    for ( int i = 0; i < Nx1; ++i )
+    {
+        printf("{%lf,%lf},", grid.X1m[ i ], f_prime_vals[ i + 2*Nx1 + 2 ]);
+    }
+    printf("}\n\n");
+}
+
 // Function to clear the resources of the interpolated metric
 void Free_Interpolated_Metric()
 {
     free( interp_f_ECG.limits );
     free( interp_f_ECG.coeffs );
+
+    free( f_vals );
+    free( f_prime_vals );
 }

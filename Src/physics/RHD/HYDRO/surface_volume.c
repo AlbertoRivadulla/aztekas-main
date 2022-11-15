@@ -51,6 +51,9 @@ void Surface_Volume()
       for(j = 0; j <= Nx2; j++)
       {
          // ip jp k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i + Nx1 + 1;
+#endif
          vol.x[1]    = grid.X1p[i];
          vol.x[2]    = grid.X2p[j];
          #if POLAR == TRUE
@@ -62,6 +65,9 @@ void Surface_Volume()
          volipjpk = vol.dety;
  
          // i jp k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i;
+#endif
          vol.x[1]    = grid.X1[i];
          vol.x[2]    = grid.X2p[j];
          #if POLAR == TRUE
@@ -73,6 +79,9 @@ void Surface_Volume()
          volijpk = vol.dety;
 
          // im jp k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i + 2*Nx1 + 2;
+#endif
          vol.x[1]    = grid.X1m[i];
          vol.x[2]    = grid.X2p[j];
          #if POLAR == TRUE
@@ -84,6 +93,9 @@ void Surface_Volume()
          volimjpk = vol.dety;
  
          // ip j k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i + Nx1 + 1;
+#endif
          vol.x[1]    = grid.X1p[i];
          vol.x[2]    = grid.X2[j];
          #if POLAR == TRUE
@@ -95,6 +107,9 @@ void Surface_Volume()
          volipjk = vol.dety;
  
          // i j k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i;
+#endif
          vol.x[1]    = grid.X1[i];
          vol.x[2]    = grid.X2[j];
          #if POLAR == TRUE
@@ -106,6 +121,9 @@ void Surface_Volume()
          volijk = vol.dety;
 
          // im j k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i + 2*Nx1 + 2;
+#endif
          vol.x[1]    = grid.X1m[i];
          vol.x[2]    = grid.X2[j];
          #if POLAR == TRUE
@@ -117,6 +135,9 @@ void Surface_Volume()
          volimjk = vol.dety;
  
          // ip jm k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i + Nx1 + 1;
+#endif
          vol.x[1]    = grid.X1p[i];
          vol.x[2]    = grid.X2m[j];
          #if POLAR == TRUE
@@ -128,6 +149,9 @@ void Surface_Volume()
          volipjmk = vol.dety;
  
          // i jm k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i;
+#endif
          vol.x[1]    = grid.X1[i];
          vol.x[2]    = grid.X2m[j];
          #if POLAR == TRUE
@@ -139,6 +163,9 @@ void Surface_Volume()
          volijmk = vol.dety;
 
          // im jm k
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i + 2*Nx1 + 2;
+#endif
          vol.x[1]    = grid.X1m[i];
          vol.x[2]    = grid.X2m[j];
          #if POLAR == TRUE
@@ -160,6 +187,11 @@ void Surface_Volume()
                + 1.0*volimjmk +  4.0*volijmk + 1.0*volipjmk)/36.0;
          //dV = volijk;
 
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i;
+         surf_p.I[0] = i + Nx1 + 1;
+         surf_m.I[0] = i + 2*Nx1 + 2;
+#endif
          vol.x[1]    = grid.X1[i];
          surf_p.x[1] = grid.X1p[i];
          surf_m.x[1] = grid.X1m[i];
@@ -190,6 +222,11 @@ void Surface_Volume()
          //printf("%e %e %e\n",dV,(surf_p.dety + 4.0*vol.dety + surf_m.dety)/6.0,volijk);
          //printf("\n");
  
+#ifdef INTERPOLATED_METRIC
+         vol.I[0] = i;
+         surf_p.I[0] = i;
+         surf_m.I[0] = i;
+#endif
          vol.x[1]    = grid.X1[i];
          surf_p.x[1] = grid.X1[i];
          surf_m.x[1] = grid.X1[i];

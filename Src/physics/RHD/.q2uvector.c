@@ -109,6 +109,9 @@ int Cons2Prim(double *u, double *q)
    {
       for(j = 0; j <= Nx2-0; j++)
       {
+#ifdef INTERPOLATED_METRIC
+         local_grid.I[0] = i;
+#endif
          local_grid.x[0] = grid.time;
          local_grid.x[1] = grid.X1[i];
          local_grid.x[2] = grid.X2[j];
@@ -117,6 +120,7 @@ int Cons2Prim(double *u, double *q)
          local_grid.x[2] = M_PI_2;
          #endif
 
+         printf( "algo 3\n" );
          Get_Metric_Components(&local_grid);
 
          D        = q(0,i,j);

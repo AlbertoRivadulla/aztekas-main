@@ -38,6 +38,10 @@ void Numerical_Flux_F(double *F, int pm, int *I)
    i = I[0];
    j = I[1];
 
+#ifdef INTERPOLATED_METRIC
+   local_grid.I[0] = i;
+#endif
+
    local_grid.x[1] = grid.X1[i];
    local_grid.x[2] = grid.X2[j];
    local_grid.x[3] = 0.0;
@@ -59,6 +63,9 @@ void Numerical_Flux_F(double *F, int pm, int *I)
 
    if(pm == PLUS)
    {
+#ifdef INTERPOLATED_METRIC
+      local_grid.I[0] = i + Nx1 + 1;
+#endif
       local_grid.x[1] = grid.X1p[i];
 
       for(n = 0; n < eq; n++)
@@ -77,6 +84,9 @@ void Numerical_Flux_F(double *F, int pm, int *I)
    }
    if(pm == MINUS)
    {
+#ifdef INTERPOLATED_METRIC
+      local_grid.I[0] = i + 2*Nx1 + 2;
+#endif
       local_grid.x[1] = grid.X1m[i];
 
       for(n = 0; n < eq; n++)
@@ -132,6 +142,10 @@ void Numerical_Flux_G(double *F, int pm, int *I)
 
    i = I[0];
    j = I[1];
+
+#ifdef INTERPOLATED_METRIC
+      local_grid.I[0] = i;
+#endif
 
    local_grid.x[1] = grid.X1[i];
    local_grid.x[2] = grid.X2[j];
