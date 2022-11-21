@@ -146,36 +146,68 @@
 
 - Improve the computations
     - Try to reduce the minimum radius
-        - The integration does not converge if I decrease it too much.
         - Study the stability of the system. 
           Does the accretion rate change much when this minimum radius is modified?
     - Once the computation works in ECG, increase the resolution
 
-- Expected values of Mdot / Mdot_BHL
-    -------------------------------------------------------------------------------------
-    | epsilon \ vinf  | 0.2                 | 0.5                 | 0.9                 |
-    -------------------------------------------------------------------------------------
-    | 0               | 1.33026 / XXXXXXX   | 3.26888 / XXXXXXX   | 15.4367 / XXXXXXX   |
-    -------------------------------------------------------------------------------------
-    | 5               | 1.33041 / XXXXXXX   | 3.57748 / XXXXXXX   | 30.1309 / XXXXXXX   |
-    -------------------------------------------------------------------------------------
-    | 20              | 1.33075 / XXXXXXX   | 4.80481 / XXXXXXX   | 47.7397 / XXXXXXX   |
-    -------------------------------------------------------------------------------------
-    | 500             | 1.34168 / XXXXXXX   | 14.7610 / XXXXXXX   | 171.291 / XXXXXXX   |
-    -------------------------------------------------------------------------------------
+- Computations in Kerr-Schild coordinates
+    - It works in GR, with v_inf = 0.5 and r_min = 1.5, with a grid of 200x200
+        - The result is Mdot / Mdot_BHL = 3.20
+        - Try with r_min = r_horizon
+    - Do this with the cubic corrections
+        - I must find the correct form of the metric in terms of f(r).
+            - In order to convert the metric to coordinates that are regular at the horizon,
+              use the change of coordinates in page 235 of my notes.
+        - Solve f(r) inside the horizon too.
 
-- Expected values of log( Mdot / Mdot_0 )
-    -------------------------------------------------------------------------------------
-    | epsilon \ vinf  | 0.2                 | 0.5                 | 0.9                 |
-    -------------------------------------------------------------------------------------
-    | 0               | 2.21694 / XXXXXXX   | 1.41749 / XXXXXXX   | 1.32699 / XXXXXXX   |
-    -------------------------------------------------------------------------------------
-    | 5               | 2.21699 / XXXXXXX   | 1.45667 / XXXXXXX   | 1.61744 / XXXXXXX   |
-    -------------------------------------------------------------------------------------
-    | 20              | 2.21710 / XXXXXXX   | 1.58477 / XXXXXXX   | 1.81731 / XXXXXXX   |
-    -------------------------------------------------------------------------------------
-    | 500             | 2.22066 / XXXXXXX   | 2.07221 / XXXXXXX   | 2.37216 / XXXXXXX   |
-    -------------------------------------------------------------------------------------
+- Values of Mdot / Mdot_BHL (ballistic / spherical coords / Kerr-Schild coords)
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | epsilon \ v_inf | 0.2                     | 0.3                     | 0.5                     | 0.7                     | 0.9                     |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | 0               | 1.33026 / XXXXX / 0.947?| XXXXXXX / XXXXX / XXXXX | 3.26888 / 2.745 / 2.6.. | XXXXXXX / XXXXX / 5.689 | 15.4367 / XXXXX / XXXXX |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | 5               | 1.33041 / 0.762 / 1.260?| XXXXXXX / XXXXX / XXXXX | 3.57748 / 3.236 / 3.670 | XXXXXXX / XXXXX / 9.363 | 30.1309 / XXXXX / XXXXX |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | 20              | 1.33075 / 0.911 / XXXXX | XXXXXXX / XXXXX / XXXXX | 4.80481 / 4.598 / 5.227 | XXXXXXX / XXXXX / 14.07 | 47.7397 / XXXXX / XXXXX |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | 500             | 1.34168 / 1.093 / XXXXX | XXXXXXX / XXXXX / XXXXX | 14.7610 / 14.02 / 15.72 | XXXXXXX / XXXXX / 46.75 | 171.291 / XXXXX / XXXXX |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+    1.38
+
+- Values of log( Mdot / Mdot_0 ) (ballistic / spherical coords / Kerr-Schild coords)
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | epsilon \ v_inf | 0.2                     | 0.3                     | 0.5                     | 0.7                     | 0.9                     |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | 0               | 2.21694 / XXXXX / 2.073?| XXXXXXX / XXXXX / XXXXX | 1.41749 / 1.342 / 1.368 | XXXXXXX / XXXXX / 1.220 | 1.32699 / XXXXX / XXXXX |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | 5               | 2.21699 / 1.979 / 2.197?| XXXXXXX / XXXXX / XXXXX | 1.45667 / 1.413 / 1.468 | XXXXXXX / XXXXX / 1.436 | 1.61744 / XXXXX / XXXXX |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | 20              | 2.21710 / 2.057 / XXXXX | XXXXXXX / XXXXX / XXXXX | 1.58477 / 1.566 / 1.621 | XXXXXXX / XXXXX / 1.613 | 1.81731 / XXXXX / XXXXX |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+    | 500             | 2.22066 / 2.135 / XXXXX | XXXXXXX / XXXXX / XXXXX | 2.07221 / 2.050 / 2.100 | XXXXXXX / XXXXX / 2.134 | 2.37216 / XXXXX / XXXXX |
+    -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+- Next steps
+    - Run the comptuation in spherical coordinates for epsilon = 0 up to a larger value of time
+    - Plot the results with the curves from ballistic accretion
+    - Calculations in Kerr-Schild coordinates with ECG corrections
+        - Implement the metric
+            - Implement evaluation of the functions at the horizon
+        - Create the paramfiles
+        - Run the simulation
+    - Check the precision of the coefficients of the polynomials in Mathematica
+        - Export them in binary format?
+    - Take r_min and r_max as in their paper, in terms of r_acc
+    - The time until stabilization also depends on v_inf.
+
+    - Try to run the original simulation in Kerr-Schild with high values of the velocity,
+      both in polar and non-polar coordinates.
+        - This only considers the metric of GR.
+        - Take the limits in r to be [0.5 r_acc, 10 r_acc]
+    - Write the code in Mathematica to get the values of the accretion computed by Aztekas
+      and plot them with the curves from ballistic accretion
 
 
 

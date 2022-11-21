@@ -188,6 +188,7 @@ ifeq ($(UNAME),Darwin)
       LIBS_DIR := $(wildcard /opt/homebrew/Cellar/gcc/*/lib/gcc/current/)
       # Add this as a flag
       FLAGS += -L$(LIBS_DIR)
+
       # Change the compiler to clang
       COMPILER = clang
    endif

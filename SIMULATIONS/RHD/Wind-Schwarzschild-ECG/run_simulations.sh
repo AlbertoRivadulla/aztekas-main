@@ -4,7 +4,7 @@
 # They all have fixed
 #   K = 4/3, Mach = 5
 # The ECG coupling epsilon and the velocity at infinity will change. They take the values:
-#   epsilon = 5, 20, 500
+#   epsilon = 0, 5, 20, 500
 #   v_inf   = 0.2, 0.5, 0.9
 # The aztekas code must be compiled for the different values of v_inf desired
 
@@ -18,7 +18,8 @@ aztekas_bin_base="./aztekas_binaries/aztekas_vinf_"
 
 # v_inf = 0.2 
 v_inf=0_2
-for epsilon_ECG in 5 20 500
+# for epsilon_ECG in 0 5 20 500
+for epsilon_ECG in 0
 do
     # Get the path of the binary and the parameter files
     aztekas_bin="${aztekas_bin_base}${v_inf}"
@@ -34,11 +35,13 @@ do
     # Write to the log file
     echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
 done
-echo "" >> $log_file
+
+echo "" >> $progress_file
 
 # v_inf = 0.5
 v_inf=0_5
-for epsilon_ECG in 5 20 500
+# for epsilon_ECG in 0 5 20 500
+for epsilon_ECG in 0
 do
     # Get the path of the binary and the parameter files
     aztekas_bin="${aztekas_bin_base}${v_inf}"
@@ -54,25 +57,27 @@ do
     # Write to the log file
     echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
 done
+
 echo "" >> $log_file
 
 
-# v_inf = 0.9
-v_inf=0_5
-for epsilon_ECG in 5 20 500
-do
-    # Get the path of the binary and the parameter files
-    aztekas_bin="${aztekas_bin_base}${v_inf}"
-    paramfile="${paramfile_base}${epsilon_ECG}_vinf_${v_inf}.param"
-
-    # Run the simulation
-    ./$aztekas_bin $paramfile
-    # Redirect stdout and stderr to the log file
-    # ./$aztekas_bin $paramfile >$log_file 2>&1
-    # Print stdout to the terminal, and redirect both stdout and stderr to the log file
-    # ./$aztekas_bin $paramfile 2>&1 | tee $log_file
-
-    # Write to the log file
-    echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
-done
-echo "" >> $log_file
+# # v_inf = 0.9
+# v_inf=0_9
+# for epsilon_ECG in 0 5 20 500
+# do
+#     # Get the path of the binary and the parameter files
+#     aztekas_bin="${aztekas_bin_base}${v_inf}"
+#     paramfile="${paramfile_base}${epsilon_ECG}_vinf_${v_inf}.param"
+#
+#     # Run the simulation
+#     ./$aztekas_bin $paramfile
+#     # Redirect stdout and stderr to the log file
+#     # ./$aztekas_bin $paramfile >$log_file 2>&1
+#     # Print stdout to the terminal, and redirect both stdout and stderr to the log file
+#     # ./$aztekas_bin $paramfile 2>&1 | tee $log_file
+#
+#     # Write to the log file
+#     echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
+# done
+#
+# echo "" >> $log_file

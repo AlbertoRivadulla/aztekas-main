@@ -1,0 +1,54 @@
+% OUTPUT FILE AND DIRECTORY
+outputdirectory = ./results_ECG/K_4over3/vinf_0_7/eps_5/
+outputfile      = wind_ 
+
+% RESTART SIMULATION (1 -> true, 0 -> false)
+restart_simulation = 0
+restartfile = ./results_ECG/K_4over3/vinf_0_7/eps_5/wind_100.dat
+restart_filecount = 100
+
+% Define mesh
+Nx1 = 200
+Nx2 = 200
+Nx3 = 0
+
+% Define domain limits
+% The minimum and maximum values of r (x1) is:
+x1min = 1.5499432914792288
+x1max = 30.998865829584577
+x2min = 0.0
+x2max = 1.0
+x3min = 0.0
+x3max = 1.0 
+
+% Time parameters
+tmax = 150.0
+timefile = 10.0
+cou = 0.20
+
+% Polytorpic index
+K = 1.3333333333333333333333333
+% K = 1.6666666666666666666666666
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Initial conditions %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+density_0  =  1.0e-10
+pressure_0 =  1.0
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% MASS ACCRETION RATE %
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% Error threshold
+MDOT_ERR = 1.0e-04
+% Interval of time for computing the accretion rate
+Mdot_tprint = 0.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Parameters for the ECG BH %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+epsilon_cubic = 5.
+polynomial_f_file = Polynomials_f_ECG/f(u)_epsilon_5..csv

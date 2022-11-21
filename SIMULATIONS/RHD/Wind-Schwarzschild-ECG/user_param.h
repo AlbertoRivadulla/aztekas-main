@@ -41,7 +41,7 @@ double density_0, pressure_0, velocity_0;
 
 #define ANALYSIS                FALSE
 #define MDOT                    TRUE
-#define MDOT_END                TRUE
+// #define MDOT_END                TRUE
 #define MDOT_DATA               1.0e+04
 int Mdot_end;
 double Mdot_0;

@@ -181,21 +181,6 @@ void Compute_f_In_Grid()
         f_prime_vals[ i + 2*Nx1 + 2 ] = f_Prime_Metric_From_Interp( Black_Hole_Mass, grid.X1m[ i ] );
 
     }
-
-
-    printf("\n\n{");
-    for ( int i = 0; i < Nx1; ++i )
-    {
-        printf("{%lf,%lf},", grid.X1m[ i ], f_vals[ i + 2*Nx1 + 2 ]);
-    }
-    printf("}\n\n");
-
-    printf("\n\n{");
-    for ( int i = 0; i < Nx1; ++i )
-    {
-        printf("{%lf,%lf},", grid.X1m[ i ], f_prime_vals[ i + 2*Nx1 + 2 ]);
-    }
-    printf("}\n\n");
 }
 
 // Function to clear the resources of the interpolated metric

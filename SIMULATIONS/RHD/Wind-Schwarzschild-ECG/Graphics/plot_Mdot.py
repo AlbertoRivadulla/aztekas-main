@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
+
 directory = "."
 if len(sys.argv) > 2:
     directory = sys.argv[2]

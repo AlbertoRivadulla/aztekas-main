@@ -16,7 +16,7 @@ Nx3 = 0
 % The minimum value of r (x1) is:
 %   x1min = 2.5 r_h/2 = 2.5 / Z_h
 x1min = 3.9492555066890738
-x1max = 63.18808810702518
+x1max = 94.78213216053777
 x2min = 0.0
 x2max = 1.0
 x3min = 0.0

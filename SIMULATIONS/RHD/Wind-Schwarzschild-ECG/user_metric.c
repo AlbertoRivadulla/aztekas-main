@@ -55,10 +55,12 @@ void Get_Metric_Components(gauge_ *local_grid)
 #if COORDINATES == CARTESIAN
 
    printf("The metric is not defined in cartesian coordinates.\n");
+   exit(EXIT_FAILURE);
 
 #elif COORDINATES == CYLINDRICAL
 
    printf("The metric is not defined in cylindrical coordinates.\n");
+   exit(EXIT_FAILURE);
 
 #elif COORDINATES == SPHERICAL
 
@@ -98,10 +100,12 @@ void Gauge_Derivatives(der_gauge_ *der, gauge_ *local_grid)
 #if COORDINATES == CARTESIAN
 
    printf("The metric is not defined in cartesian coordinates.\n");
+   exit(EXIT_FAILURE);
 
 #elif COORDINATES == CYLINDRICAL
 
    printf("The metric is not defined in cylindrical coordinates.\n");
+   exit(EXIT_FAILURE);
 
 #elif COORDINATES == SPHERICAL
 

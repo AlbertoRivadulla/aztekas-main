@@ -3,9 +3,9 @@ outputdirectory = ./results_ECG/K_4over3/vinf_0_2/eps_500/
 outputfile      = wind_ 
 
 % RESTART SIMULATION (1 -> true, 0 -> false)
-restart_simulation = 0
-restartfile = ./results_ECG/K_4over3/vinf_0_2/eps_500/wind_1.dat
-restart_filecount = 1
+restart_simulation = 1
+restartfile = ./results_ECG/K_4over3/vinf_0_2/eps_500/wind_70.dat
+restart_filecount = 70
 
 % Define mesh
 Nx1 = 300
@@ -16,14 +16,14 @@ Nx3 = 0
 % The minimum value of r (x1) is:
 %   x1min = 2.5 r_h/2 = 2.5 / Z_h
 x1min = 7.8716981219993665
-x1max = 125.94716995198986
+x1max = 188.9207549279848
 x2min = 0.0
 x2max = 1.0
 x3min = 0.0
 x3max = 1.0 
 
 % Time parameters
-tmax = 500.0
+tmax = 1000.0
 timefile = 10.0
 cou = 0.25
 
