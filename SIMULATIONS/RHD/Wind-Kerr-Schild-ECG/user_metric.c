@@ -91,6 +91,16 @@ void Get_Metric_Components(gauge_ *local_grid)
    local_grid->gamma_con[2][1] = 0.0;
    local_grid->gamma_con[2][2] = 1.0 / r2;
 
+   local_grid->gamma_cov[0][0] = gamma_rr_cov_vals[ index ];
+   local_grid->gamma_cov[0][1] = 0.0;
+   local_grid->gamma_cov[0][2] = 0.0;
+   local_grid->gamma_cov[1][0] = 0.0;
+   local_grid->gamma_cov[1][1] = r2 * sin2;
+   local_grid->gamma_cov[1][2] = 0.0;
+   local_grid->gamma_cov[2][0] = 0.0;
+   local_grid->gamma_cov[2][1] = 0.0;
+   local_grid->gamma_cov[2][2] = r2;
+
    #endif
 
    local_grid->dety = sqrt( r2*r2 * sin2 * gamma_rr_cov_vals[ index ] );

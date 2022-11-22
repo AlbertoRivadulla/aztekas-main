@@ -53,8 +53,7 @@ void Mass_Accretion_Rate(double *B)
     */
    local_grid.x[0] = grid.time;
    time            = local_grid.x[0];
-   /* r_plus          = 1.0 + sqrt(1.0 - pow(Black_Hole_Spin,2.0)); */
-   r_plus = 2. / interp_f_ECG.xmax;
+   r_plus          = 1.0 + sqrt(1.0 - pow(Black_Hole_Spin,2.0));
 
    /*
     * Initialize average values of Mdot, Uhatr and Uhatt

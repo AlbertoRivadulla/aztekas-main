@@ -1,11 +1,11 @@
 
 % OUTPUT FILE AND DIRECTORY
-outputdirectory = ./results_ECG/K_4over3/vinf_0_2/eps_0/
+outputdirectory = ./results_ECG/K_4over3/vinf_0_9/eps_0/
 outputfile      = wind_
 
 % RESTART SIMULATION (1 -> true, 0 -> false)
 restart_simulation = 0
-restartfile = ./results_ECG/K_4over3/vinf_0_2/eps_0/wind_30.dat
+restartfile = ./results_ECG/K_4over3/vinf_0_9/eps_0/wind_30.dat
 restart_filecount = 30
 
 % Define mesh
@@ -14,17 +14,17 @@ Nx2 = 200
 Nx3 = 0
 
 % Define domain limits
-x1min = 6.009615384615383
-x1max = 240.38461538461533
+x1min = 0.5935422602089269
+x1max = 11.870845204178536
 x2min = 0.0
 x2max = 1.0
 x3min = 0.0
 x3max = 1.0
 
 % Time parameters
-tmax = 2000
-timefile = 100.0
-cou = 0.4
+tmax = 100
+timefile = 5.0
+cou = 0.1
 
 % Polytorpic index
 K = 1.3333333333333333

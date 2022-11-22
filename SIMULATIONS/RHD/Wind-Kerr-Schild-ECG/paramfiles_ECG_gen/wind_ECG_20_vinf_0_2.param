@@ -1,11 +1,11 @@
 
 % OUTPUT FILE AND DIRECTORY
-outputdirectory = ./results_ECG/K_4over3/vinf_0_2/eps_0/
+outputdirectory = ./results_ECG/K_4over3/vinf_0_2/eps_20/
 outputfile      = wind_
 
 % RESTART SIMULATION (1 -> true, 0 -> false)
 restart_simulation = 0
-restartfile = ./results_ECG/K_4over3/vinf_0_2/eps_0/wind_30.dat
+restartfile = ./results_ECG/K_4over3/vinf_0_2/eps_20/wind_30.dat
 restart_filecount = 30
 
 % Define mesh
@@ -14,8 +14,8 @@ Nx2 = 200
 Nx3 = 0
 
 % Define domain limits
-x1min = 6.009615384615383
-x1max = 240.38461538461533
+x1min = 11.53499982939968
+x1max = 461.3999931759872
 x2min = 0.0
 x2max = 1.0
 x3min = 0.0
@@ -49,5 +49,5 @@ Mdot_tprint = 0.
 %% Parameters for the ECG BH %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-epsilon_cubic = 0.
-polynomial_f_file = Polynomials_f_ECG/f(u)_epsilon_0..csv
+epsilon_cubic = 20.
+polynomial_f_file = Polynomials_f_ECG/f(u)_epsilon_20..csv

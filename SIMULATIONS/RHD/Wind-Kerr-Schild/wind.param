@@ -12,8 +12,8 @@ outputfile      = wind_
 % RESTART SIMULATION (1 -> true, 0 -> false) %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 restart_simulation = 0
-restartfile = ./TEST/wind_0.dat
-restart_filecount = 0
+restartfile = ./TEST/wind_9.dat
+restart_filecount = 9
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CHECK SIMULATION PARAMETERS (1 -> true, 0 -> false) %
@@ -60,7 +60,8 @@ cou = 0.25
 %%%%%%%%%%%%%%%%%%%%
 % POLYTROPIC INDEX %
 %%%%%%%%%%%%%%%%%%%%
-K = 1.6666666666666666666666666
+% K = 1.6666666666666666666666666
+K = 1.3333333333333333333333333
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% BOUNDARY AND INITIAL PARAMETERS %

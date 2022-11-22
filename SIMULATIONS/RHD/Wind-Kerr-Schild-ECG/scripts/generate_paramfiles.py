@@ -64,19 +64,18 @@ epsilon_vals = ( 0, 5, 20, 500 )
 # Values of the horizon radius in the variable Z
 Zh_vals = ( 1., 0.6330307056015014, 0.5209896379277313, 0.3175934799904413 )
 # Values of v_inf
-v_inf_vals = ( 0.2, 0.5, 0.6, 0.7, 0.8, 0.9 )
 # Mach number
 Mach = 5
 # Polytropic index
 K_str = '4/3'
 # Number of points in each direction
-N_r     = 400
-N_theta = 400
+N_r     = 200
+N_theta = 200
 
-# Values of tmax and cou
-# One per value of v_inf
-tmax_vals = [ 2000, 1500, 500, 400, 150, 100 ]
-cou_vals  = [ 0.40, 0.25, 0.25, 0.2, 0.2, 0.1 ]
+# Values of v_inf, tmax and cou
+v_inf_vals = [ 0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9 ]
+tmax_vals  = [ 2000, 750,  600,  500,  400,  150,  150,  100 ]
+cou_vals   = [ 0.40, 0.15, 0.20, 0.25, 0.2,  0.2,  0.05, 0.05 ]
 
 # Directory for the files
 paramfiles_directory = './paramfiles_ECG_gen'
@@ -90,9 +89,6 @@ if not os.path.exists( paramfiles_directory ):
 
 # Base name for the files
 paramfiles_base_name = paramfiles_directory + 'wind_ECG_{epsilon}_vinf_{vinf}.param'
-
-epsilon_vals = [0]
-v_inf_vals = [0.2]
 
 # Generate all the parameter files
 for i in range( len( epsilon_vals ) ):
@@ -117,7 +113,7 @@ for i in range( len( epsilon_vals ) ):
                     'r_min' : r_min,
                     'r_max' : r_max,
                     'tmax' : tmax_vals[ j ],
-                    'timefile' : 20 / tmax_vals[ j ],
+                    'timefile' : tmax_vals[ j ] / 20,
                     'cou' : cou_vals[ j ]
                     }
 
@@ -126,23 +122,3 @@ for i in range( len( epsilon_vals ) ):
                                                  vinf=dic_vals['vinf_str'] )
         with open( file_name, 'w' ) as f:
             f.write( paramfile_string.format( **dic_vals ) )
-
-        #
-        # # Print the results
-        # print( "\n---------" )
-        # print( "v_inf = {}\n".format( v_inf ) )
-        # print( "x1min = {}".format( r_min ) )
-        # print( "x1max = {}".format( r_max ) )
-
-# K_str
-# K_val
-# vinf_str
-# eps_val
-# Nx1
-# Nx2
-# r_min
-# r_max
-# tmax
-# timefile
-# cou
-
