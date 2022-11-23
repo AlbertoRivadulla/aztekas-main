@@ -211,28 +211,62 @@
         eps = 5   -> Improve
         eps = 20  -> Improve
         eps = 500 -> Not convergent
-      v = 0.4
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
       v = 0.5
         eps = 0 -> Improve
-      v = 0.6
-        eps = 5
-        eps = 20
-        eps = 500
       v = 0.8
-        eps = 0
         eps = 5
         eps = 20
-        eps = 500
+        eps = 500 -> Improve
       v = 0.9
         eps = 0
         eps = 5
         eps = 20
         eps = 500
 
+    - Run again
+      v = 0.2
+        eps = 0
+        eps = 5
+        eps = 20
+        eps = 500
+      v = 0.3
+        eps = 0
+        eps = 5
+        eps = 20
+        eps = 500
+      v = 0.4
+        eps = 0
+        eps = 5
+        eps = 20
+        eps = 500
+      v = 0.5
+        eps = 0
+        eps = 5
+        eps = 20
+        eps = 500
+      v = 0.6
+        eps = 0
+        eps = 5
+        eps = 20
+        eps = 500
+      v = 0.7
+        eps = 0
+        eps = 5
+        eps = 20
+        eps = 500
+      v = 0.8
+        eps = 0
+      v = 0.9
+        eps = 0
+        eps = 5
+        eps = 20
+        eps = 500
+
+correr:
+  eps 500, vinf 0.8
+comprobar
+  eps 5, vinf 0.5
+  eps 20, vinf 0.5
 
 
 

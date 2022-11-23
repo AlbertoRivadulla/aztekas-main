@@ -9,7 +9,7 @@ restartfile = ./results_ECG/K_4over3/vinf_0_8/eps_0/wind_30.dat
 restart_filecount = 30
 
 % Define mesh
-Nx1 = 200
+Nx1 = 300
 Nx2 = 200
 Nx3 = 0
 

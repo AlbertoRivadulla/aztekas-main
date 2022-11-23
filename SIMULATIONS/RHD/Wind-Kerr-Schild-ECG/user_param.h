@@ -31,7 +31,7 @@
 #define Black_Hole_Mass    1.0
 #define Black_Hole_Spin    0.0
 #define Mach               5.0
-#define vinf               0.9
+#define vinf               0.5
 
 double density_0, pressure_0, velocity_0;
 
@@ -87,7 +87,7 @@ struct Interpolating_Piecewise_Poly
     int n_points;
 
     double r_hor;
-    double f_prime_r_hor;
+    // double f_prime_r_hor;
 
     double* coeffs;
     double* limits;

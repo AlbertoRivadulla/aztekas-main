@@ -18,7 +18,8 @@ v_inf_str = str( v_inf ).replace( '.', '_' )
 rho0 = 10**(-10)
 
 # Proportion of values used to compute the average at the end
-prop_average = 0.15
+# prop_average = 0.15
+prop_average = 0.05
 # Boolean variable that determines whether or not saving the results
 save_results = False
 if len(sys.argv) > 2:

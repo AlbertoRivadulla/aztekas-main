@@ -48,35 +48,35 @@ aztekas_bin_base="./aztekas_binaries/aztekas_vinf_"
 #
 # echo "" >> $progress_file
 
-# v_inf=0_4
-# # for epsilon_ECG in 0 5 20 500
+v_inf=0_4
+for epsilon_ECG in 0 5 20 500
 # for epsilon_ECG in 0
-# do
-#     # Get the path of the binary and the parameter files
-#     aztekas_bin="${aztekas_bin_base}${v_inf}"
-#     paramfile="${paramfile_base}${epsilon_ECG}_vinf_${v_inf}.param"
-#     # Run the simulation
-#     ./$aztekas_bin $paramfile
-#     # Write to the log file
-#     echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
-# done
-#
-# echo "" >> $log_file
+do
+    # Get the path of the binary and the parameter files
+    aztekas_bin="${aztekas_bin_base}${v_inf}"
+    paramfile="${paramfile_base}${epsilon_ECG}_vinf_${v_inf}.param"
+    # Run the simulation
+    ./$aztekas_bin $paramfile
+    # Write to the log file
+    echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
+done
 
-# v_inf=0_5
-# # for epsilon_ECG in 0 5 20 500
+echo "" >> $log_file
+
+v_inf=0_5
+for epsilon_ECG in 0 5 20 500
 # for epsilon_ECG in 0
-# do
-#     # Get the path of the binary and the parameter files
-#     aztekas_bin="${aztekas_bin_base}${v_inf}"
-#     paramfile="${paramfile_base}${epsilon_ECG}_vinf_${v_inf}.param"
-#     # Run the simulation
-#     ./$aztekas_bin $paramfile
-#     # Write to the log file
-#     echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
-# done
-#
-# echo "" >> $log_file
+do
+    # Get the path of the binary and the parameter files
+    aztekas_bin="${aztekas_bin_base}${v_inf}"
+    paramfile="${paramfile_base}${epsilon_ECG}_vinf_${v_inf}.param"
+    # Run the simulation
+    ./$aztekas_bin $paramfile
+    # Write to the log file
+    echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
+done
+
+echo "" >> $log_file
 
 # v_inf=0_6
 # # for epsilon_ECG in 0 5 20 500
@@ -107,20 +107,20 @@ aztekas_bin_base="./aztekas_binaries/aztekas_vinf_"
 #
 # echo "" >> $progress_file
 
-v_inf=0_8
-# for epsilon_ECG in 0 5 20 500
-for epsilon_ECG in 0
-do
-    # Get the path of the binary and the parameter files
-    aztekas_bin="${aztekas_bin_base}${v_inf}"
-    paramfile="${paramfile_base}${epsilon_ECG}_vinf_${v_inf}.param"
-    # Run the simulation
-    ./$aztekas_bin $paramfile
-    # Write to the log file
-    echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
-done
-
-echo "" >> $progress_file
+# v_inf=0_8
+# # for epsilon_ECG in 0 5 20 500
+# for epsilon_ECG in 0
+# do
+#     # Get the path of the binary and the parameter files
+#     aztekas_bin="${aztekas_bin_base}${v_inf}"
+#     paramfile="${paramfile_base}${epsilon_ECG}_vinf_${v_inf}.param"
+#     # Run the simulation
+#     ./$aztekas_bin $paramfile
+#     # Write to the log file
+#     echo "Finished running the simulation with epsilon = ${epsilon_ECG} and v_inf = ${v_inf}." >> $progress_file
+# done
+#
+# echo "" >> $progress_file
 
 
 # v_inf=0_9

@@ -87,7 +87,7 @@ void Read_Interpolation_f_Metric()
     // Convert these to the coordinates r = 2M/Z
     double M = Black_Hole_Mass;
     interp_f_ECG.r_hor = 2. * M / Z_hor;
-    interp_f_ECG.f_prime_r_hor = - Z_hor*Z_hor / (2. * M) * f_prime_Z_hor;
+    /* interp_f_ECG.f_prime_r_hor = - Z_hor*Z_hor / (2. * M) * f_prime_Z_hor; */
 
     // Read the following lines of the file
     int row = 0;
@@ -107,7 +107,7 @@ void Read_Interpolation_f_Metric()
             /* if ( column <= 3 ) */
             if ( column <= 5 )
                 /* interp_f_ECG.coeffs[ row*5 + column ] = strtod( value, &ptr ); */
-                interp_f_ECG.coeffs[ row*7 + column ] = strtod( value, &ptr );
+                interp_f_ECG.coeffs[ row*6 + column ] = strtod( value, &ptr );
             else
                 interp_f_ECG.limits[ row ] = strtod( value, &ptr );
 
@@ -139,13 +139,29 @@ double f_Metric_From_Interp( const double M, const double r )
     while ( Z > interp_f_ECG.limits[ i_interval + 1 ] && i_interval < interp_f_ECG.n_points - 1 )
         i_interval++;
 
+    /* printf("\nInterval: %d   ", i_interval); */
+
     // Compute the value with the cubic polynomial in that interval
-    return   interp_f_ECG.coeffs[i_interval*7 + 0] 
-           + interp_f_ECG.coeffs[i_interval*7 + 1]*Z 
-           + interp_f_ECG.coeffs[i_interval*7 + 2]*Z*Z
-           + interp_f_ECG.coeffs[i_interval*7 + 3]*Z*Z*Z
-           + interp_f_ECG.coeffs[i_interval*7 + 4]*Z*Z*Z*Z
-           + interp_f_ECG.coeffs[i_interval*7 + 5]*Z*Z*Z*Z*Z;
+
+    /* double aux1 = interp_f_ECG.coeffs[i_interval*6 + 0];  */
+    /* double aux2 = interp_f_ECG.coeffs[i_interval*6 + 1]*Z; */
+    /* double aux3 = interp_f_ECG.coeffs[i_interval*6 + 2]*Z*Z; */
+    /* double aux4 = interp_f_ECG.coeffs[i_interval*6 + 3]*Z*Z*Z; */
+    /* double aux5 = interp_f_ECG.coeffs[i_interval*6 + 4]*Z*Z*Z*Z; */
+    /* double aux6 = interp_f_ECG.coeffs[i_interval*6 + 5]*Z*Z*Z*Z*Z; */
+    /*  */
+    /* printf("[%f, %f, %f, %f, %f, %f] -- %f %p %d\n", aux1,aux2,aux3,aux4,aux5,aux6, Z, &interp_f_ECG.coeffs[ i_interval*7 + 1 ], i_interval*7 + 1); */
+    /* for ( int i = 0; i < 6; ++i ) */
+    /*     printf( "%f ", interp_f_ECG.coeffs[i_interval*7 + i] ); */
+    /* printf("\n"); */
+
+
+    return   interp_f_ECG.coeffs[i_interval*6 + 0] 
+           + interp_f_ECG.coeffs[i_interval*6 + 1]*Z 
+           + interp_f_ECG.coeffs[i_interval*6 + 2]*Z*Z
+           + interp_f_ECG.coeffs[i_interval*6 + 3]*Z*Z*Z
+           + interp_f_ECG.coeffs[i_interval*6 + 4]*Z*Z*Z*Z
+           + interp_f_ECG.coeffs[i_interval*6 + 5]*Z*Z*Z*Z*Z;
     /* return   interp_f_ECG.coeffs[i_interval*5 + 0]  */
     /*        + interp_f_ECG.coeffs[i_interval*5 + 1]*Z  */
     /*        + interp_f_ECG.coeffs[i_interval*5 + 2]*Z*Z */
@@ -173,11 +189,11 @@ double f_Prime_Metric_From_Interp( const double M, const double r )
     /* return - Z*Z * 0.5 / M * ( interp_f_ECG.coeffs[i_interval*5 + 1] */
     /*                            + 2. * interp_f_ECG.coeffs[i_interval*5 + 2]*Z */
     /*                            + 3. * interp_f_ECG.coeffs[i_interval*5 + 3]*Z*Z ); */
-    return - Z*Z * 0.5 / M * ( interp_f_ECG.coeffs[i_interval*7 + 1]
-                               + 2. * interp_f_ECG.coeffs[i_interval*7 + 2]*Z
-                               + 3. * interp_f_ECG.coeffs[i_interval*7 + 3]*Z*Z
-                               + 4. * interp_f_ECG.coeffs[i_interval*7 + 4]*Z*Z*Z
-                               + 5. * interp_f_ECG.coeffs[i_interval*7 + 5]*Z*Z*Z*Z );
+    return - Z*Z * 0.5 / M * ( interp_f_ECG.coeffs[i_interval*6 + 1]
+                               + 2. * interp_f_ECG.coeffs[i_interval*6 + 2]*Z
+                               + 3. * interp_f_ECG.coeffs[i_interval*6 + 3]*Z*Z
+                               + 4. * interp_f_ECG.coeffs[i_interval*6 + 4]*Z*Z*Z
+                               + 5. * interp_f_ECG.coeffs[i_interval*6 + 5]*Z*Z*Z*Z );
     /* } */
     /*  */
     /* // Solution in GR */
@@ -285,7 +301,7 @@ void Compute_Functions_Metric_In_Point( double r , int index )
     der_r_beta_con_vals[ index ]     = -fp / ( ( -2. + f ) * ( -2. + f ) );
     der_r_gamma_rr_cov_vals[ index ] = -fp;
                                        
-    /* printf("%f (%f) %f %f %f %f %f --- %f %f %f\n", r, f, */
+    /* printf("%f (%f) %f %f %f %f %f --- %f %f %f --- %d --- %p\n", r, f, */
     /*                                     alpha_vals[ index ], */
     /*                                     beta_r_con_vals[ index ], */
     /*                                     gamma_rr_cov_vals[ index ], */
@@ -293,8 +309,13 @@ void Compute_Functions_Metric_In_Point( double r , int index )
     /*                                     gamma_rr_con_vals[ index ], */
     /*                                     der_r_alpha_vals[ index ], */
     /*                                     der_r_beta_con_vals[ index ], */
-    /*                                     der_r_gamma_rr_cov_vals[ index ] */
+    /*                                     der_r_gamma_rr_cov_vals[ index ], */
+    /*                                     index, */
+    /*                                     &alpha_vals[ index ] */
     /*                                     ); */
+    
+    /* printf("{%f,%f},",r,f); */
+    /* printf("%f,", r); */
 }
 
 // Function to compute the values of f(r) and f'(r) in the grid
