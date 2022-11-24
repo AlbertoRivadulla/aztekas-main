@@ -18,8 +18,8 @@ v_inf_str = str( v_inf ).replace( '.', '_' )
 rho0 = 10**(-10)
 
 # Proportion of values used to compute the average at the end
-# prop_average = 0.15
-prop_average = 0.05
+prop_average = 0.1
+# prop_average = 0.05
 # Boolean variable that determines whether or not saving the results
 save_results = False
 if len(sys.argv) > 2:
@@ -46,7 +46,7 @@ eps_vals.sort()
 
 # Create the figure
 # fig, ax = plt.subplots( len(eps_vals), figsize=(7, 7) )
-fig = plt.figure( figsize=(10, 7) )
+fig = plt.figure( figsize=(6, 4) )
 
 # Plot the data
 values_Mdot_MdotBHL   = [ 0. ] * len(eps_vals)
@@ -98,7 +98,6 @@ for i in range( len( eps_vals ) ):
 plt.xlabel( "time" )
 plt.ylabel( "Mdot/Mdot_BHL" )
 plt.legend( loc="best" )
-plt.show()
 
 # Save the results to a file
 if save_results:
@@ -112,4 +111,8 @@ if save_results:
                                         values_Mdot_MdotBHL[i],
                                         values_log_Mdot_Mdot0[i]
                                       ) )
+    # Save also the plot
+    plot_dir = base_directory_results + "Mdot_over_time_vinf_" + v_inf_str + ".png"
+    plt.savefig( plot_dir, dpi=250 )
 
+plt.show()

@@ -130,98 +130,28 @@
     20
     500
     (and maybe more)
-  In each case, x1min (the minimum value of the coordinate r) should change with 
-  the horizon radius, as 2.5 r_h
     - Do this for different values of v_inf in each case
-        v_inf = 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
-    - Do this for different values of the adiabatic index
-        K = 4/3 (1.33), 5/3 (1.66) (as in the paper)
-        - I only do it for K = 4/3
+        v_inf = 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8
+    - Do this for only one value of the adiabatic index
+        K = 4/3 (1.33)
     - Do this only for a value of the Mach number:
         M = 5
+    - The range of values of r is
+        [ 0.5 r_acc, 10 r_acc ]
+      where r_acc is defined as in the paper, replacing M by r_h/2
 - Compute the compression ratio.
     - Emilio should tell me how to do this
     - Take the density at infinity and at some reference value of the radius (proportional
       to the horizon radius).
 
 - Improve the computations
-    - Try to reduce the minimum radius
-        - Study the stability of the system. 
-          Does the accretion rate change much when this minimum radius is modified?
-    - Once the computation works in ECG, increase the resolution
-
-- Computations in Kerr-Schild coordinates
-    - It works in GR, with v_inf = 0.5 and r_min = 1.5, with a grid of 200x200
-        - The result is Mdot / Mdot_BHL = 3.20
-        - Try with r_min = r_horizon
-    - Do this with the cubic corrections
-        - I must find the correct form of the metric in terms of f(r).
-            - In order to convert the metric to coordinates that are regular at the horizon,
-              use the change of coordinates in page 235 of my notes.
-        - Solve f(r) inside the horizon too.
-
-- Values of Mdot / Mdot_BHL (ballistic / spherical coords / Kerr-Schild coords)
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | epsilon \ v_inf | 0.2                     | 0.3                     | 0.5                     | 0.7                     | 0.8                     | 0.9                     |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | 0               | 1.33026 / XXXXX / 0.947?| XXXXXXX / XXXXX / XXXXX | 3.26888 / 2.745 / 2.6.. | XXXXXXX / XXXXX / 5.689 | XXXXXXX / XXXXX / XXXXX | 15.4367 / XXXXX / XXXXX |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | 5               | 1.33041 / 0.762 / 1.260?| XXXXXXX / XXXXX / XXXXX | 3.57748 / 3.236 / 3.671 | XXXXXXX / XXXXX / 9.363 | XXXXXXX / XXXXX / XXXXX | 30.1309 / XXXXX / XXXXX |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | 20              | 1.33075 / 0.911 / XXXXX | XXXXXXX / XXXXX / XXXXX | 4.80481 / 4.598 / 5.226 | XXXXXXX / XXXXX / 14.07 | XXXXXXX / XXXXX / XXXXX | 47.7397 / XXXXX / XXXXX |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | 500             | 1.34168 / 1.093 / XXXXX | XXXXXXX / XXXXX / XXXXX | 14.7610 / 14.02 / 15.72 | XXXXXXX / XXXXX / 46.75 | XXXXXXX / XXXXX / XXXXX | 171.291 / XXXXX / XXXXX |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-- Values of log( Mdot / Mdot_0 ) (ballistic / spherical coords / Kerr-Schild coords)
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | epsilon \ v_inf | 0.2                     | 0.3                     | 0.5                     | 0.7                     | 0.8                     | 0.9                     |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | 0               | 2.21694 / XXXXX / 2.073?| XXXXXXX / XXXXX / XXXXX | 1.41749 / 1.342 / 1.368 | XXXXXXX / XXXXX / 1.220 | XXXXXXX / XXXXX / XXXXX | 1.32699 / XXXXX / XXXXX |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | 5               | 2.21699 / 1.979 / 2.197?| XXXXXXX / XXXXX / XXXXX | 1.45667 / 1.413 / 1.468 | XXXXXXX / XXXXX / 1.436 | XXXXXXX / XXXXX / XXXXX | 1.61744 / XXXXX / XXXXX |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | 20              | 2.21710 / 2.057 / XXXXX | XXXXXXX / XXXXX / XXXXX | 1.58477 / 1.566 / 1.621 | XXXXXXX / XXXXX / 1.613 | XXXXXXX / XXXXX / XXXXX | 1.81731 / XXXXX / XXXXX |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    | 500             | 2.22066 / 2.135 / XXXXX | XXXXXXX / XXXXX / XXXXX | 2.07221 / 2.050 / 2.100 | XXXXXXX / XXXXX / 2.134 | XXXXXXX / XXXXX / XXXXX | 2.37216 / XXXXX / XXXXX |
-    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+    - Study the stability of the system. 
+      Does the accretion rate change much when this minimum radius is modified?
 
 - Next steps
-    - Run the comptuation in spherical coordinates for epsilon = 0 up to a larger value of time
-    - Plot the results with the curves from ballistic accretion
-    - Calculations in Kerr-Schild coordinates with ECG corrections
-        - Implement the metric
-            - Implement evaluation of the functions at the horizon
-        - Create the paramfiles
-        - Run the simulation
     - Check the precision of the coefficients of the polynomials in Mathematica
         - Export them in binary format?
-    - Take r_min and r_max as in their paper, in terms of r_acc
-    - The time until stabilization also depends on v_inf.
-
-    - Pending computations:
-      v = 0.2
-        eps = 0   -> Improve
-        eps = 5   -> Improve
-        eps = 20  -> Improve
-        eps = 500 -> Not convergent
-      v = 0.3
-        eps = 0   -> Improve
-        eps = 5   -> Improve
-        eps = 20  -> Improve
-        eps = 500 -> Not convergent
-      v = 0.5
-        eps = 0 -> Improve
-      v = 0.8
-        eps = 5
-        eps = 20
-        eps = 500 -> Improve
-      v = 0.9
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
+    - Check how r_acc is defined. Is the expression that I use correct?
 
     - Run again
       v = 0.2
@@ -230,43 +160,14 @@
         eps = 20
         eps = 500
       v = 0.3
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
-      v = 0.4
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
-      v = 0.5
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
-      v = 0.6
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
-      v = 0.7
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
-      v = 0.8
-        eps = 0
+        eps = 5 - Running
+        eps = 20 - Running
+        eps = 500 - Running
       v = 0.9
         eps = 0
         eps = 5
         eps = 20
         eps = 500
-
-correr:
-  eps 500, vinf 0.8
-comprobar
-  eps 5, vinf 0.5
-  eps 20, vinf 0.5
 
 
 
