@@ -37,29 +37,30 @@ directory_results = base_directory_results + 'vinf_' + v_inf_str + '/'
 # Go over the subfolders to get the different values of epsilon
 subdirs = os.listdir( directory_results )
 # Get the values of epsilon from this
-eps_vals = []
+eps_N_vals = []
 for subdir in subdirs:
-    match = re.findall( r"eps_([0-9]+)$", subdir )
+    match = re.findall( r"eps_([0-9]+)_N_([0-9]+)$", subdir )
     if len( match ) > 0:
-        eps_vals.append( int( match[0] ) )
-eps_vals.sort()
+        if len( match[0] ) > 0:
+            eps_N_vals.append( [ int( match[0][0] ), int( match[0][1] ) ] )
+eps_N_vals.sort( key=lambda x: x[1] )
 
 # Create the figure
 # fig, ax = plt.subplots( len(eps_vals), figsize=(7, 7) )
 fig = plt.figure( figsize=(6, 4) )
 
 # Plot the data
-values_Mdot_MdotBHL   = [ 0. ] * len(eps_vals)
-values_log_Mdot_Mdot0 = [ 0. ] * len(eps_vals)
-last_t_val            = [ 0. ] * len(eps_vals)
-colors = plt.cm.rainbow( np.linspace(0, 1, len(eps_vals)) )
-for i in range( len( eps_vals ) ):
+values_Mdot_MdotBHL   = [ 0. ] * len(eps_N_vals)
+values_log_Mdot_Mdot0 = [ 0. ] * len(eps_N_vals)
+last_t_val            = [ 0. ] * len(eps_N_vals)
+colors = plt.cm.rainbow( np.linspace(0, 1, len(eps_N_vals)) )
+for i in range( len( eps_N_vals ) ):
     try:
         # Get the directory of the data
-        directory_data = directory_results + 'eps_' + str( eps_vals[ i ] ) + "/Analysis/"
+        directory_data = directory_results + 'eps_' + str( eps_N_vals[i][0] ) + "_N_" + str( eps_N_vals[i][1] ) + "/Analysis/"
         # Get the data
-        dataMdot_const_r = np.loadtxt( directory_data + "Acc_vs_Time.dat", skiprows=1 )
         dataMdot = np.loadtxt( directory_data + "Average_vs_Time.dat", skiprows=1 )
+        dataMdot_const_r = np.loadtxt( directory_data + "Acc_vs_Time.dat", skiprows=1 )
 
         # Compute the constants to normalize the data
         MdotBHL = 4 * np.pi * rho0 / (v_inf**3)
@@ -76,7 +77,7 @@ for i in range( len( eps_vals ) ):
 
         # Plot the data
         plt.plot( dataMdot[:, 0], dataMdot[:, 1] / MdotBHL,
-                  label="epsilon = {}".format( eps_vals[i] ),
+                  label="eps = {}, N = {}".format( eps_N_vals[i][0], eps_N_vals[i][1] ),
                   c=colors[i]
                 )
 
@@ -90,15 +91,15 @@ for i in range( len( eps_vals ) ):
         plt.plot( ( dataMdot[-nr_vals_average, 0], dataMdot[-1, 0] ),
                   ( values_Mdot_MdotBHL[i], values_Mdot_MdotBHL[i] ),
                   '-.',
-                  # c=colors[i]:
+                  # c=colors[i]
                   c="k"
                 )
     except:
         continue
 
 # Print the values of Mdot computed
-for i in range( len( eps_vals ) ):
-    print("epsilon = {}, t_final = {}, {}% of values for average".format( eps_vals[ i ], last_t_val[ i ], 100*prop_average ) )
+for i in range( len( eps_N_vals ) ):
+    print("epsilon = {}, N_grid = {}, t_final = {}, {}% of values for average".format( eps_N_vals[i][0], eps_N_vals[i][1], last_t_val[ i ], 100*prop_average ) )
     print("\t{:40s}{}".format("Average Mdot / Mdot_BHL", values_Mdot_MdotBHL[ i ]) )
     print("\t{:40s}{}".format("Average log(Mdot / Mdot_0)", values_log_Mdot_Mdot0[ i ]) )
 
@@ -109,17 +110,17 @@ plt.legend( loc="best" )
 # Save the results to a file
 if save_results:
     print("Saving the average values to a file")
-    with open( base_directory_results + "results_vinf_" + v_inf_str + ".csv", 'w' ) as f:
+    with open( base_directory_results + "results_tests/results_vinf_" + v_inf_str + "_several_N.csv", 'w' ) as f:
         # The first line is the parameter in each column
-        f.write( "epsilon,Mdot_over_MdotBHL,log_Mdot_over_Mdot0\n" )
+        f.write( "epsilon,N_grid,Mdot_over_MdotBHL,log_Mdot_over_Mdot0\n" )
         # Write the data
-        for i in range( len( eps_vals ) ):
-            f.write( "{},{},{}\n".format( eps_vals[i],
+        for i in range( len( eps_N_vals ) ):
+            f.write( "{},{},{}\n".format( eps_N_vals[i][0], eps_N_vals[i][1],
                                         values_Mdot_MdotBHL[i],
                                         values_log_Mdot_Mdot0[i]
                                       ) )
     # Save also the plot
-    plot_dir = base_directory_results + "Mdot_over_time_vinf_" + v_inf_str + ".png"
+    plot_dir = base_directory_results + "results_tests/Mdot_over_time_vinf_" + v_inf_str + "_several_N.png"
     plt.savefig( plot_dir, dpi=250 )
 
 plt.show()

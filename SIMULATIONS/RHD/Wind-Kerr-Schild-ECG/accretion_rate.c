@@ -373,10 +373,31 @@ void Mass_Accretion_Rate(double *B)
          dVol  += dV[i]*dr;
       }
 
-
       Mdot  = Mdot/Vol;
       Uhatr = Uhatr/dVol;
       Uhatt = Uhatt/dVol;
+
+      /* //xxxxx */
+      /* // Save all values of Mdot and r to a file */
+      /* FILE* file_Mdot_with_r; */
+      /* char filename_Mdot_with_r[ 200 ]; */
+      /* strcpy(name_theta, outputdirectory); */
+      /* strcat(name_theta, ""); */
+      /* strcat(name_theta, ext); */
+      /*  */
+      /* file_Mdot_with_r = fopen( filename_Mdot_with_r, "w" ); */
+      /*  */
+      /* // Write the first line */
+      /* fprintf( file_Mdot_with_r, "#r,Mdot\n" ); */
+      /* for(int i = gc + 5; i <= Nx1-gc-5; i++) */
+      /* { */
+      /*    r = grid.X1[i];                                                 */
+      /*    fprintf( file_Mdot_with_r, "%e %e", grid.X1[ i ], Mdotmean[ i ] ); */
+      /* } */
+      /* fclose( file_Mdot_with_r ); */
+      /*  */
+      /* printf("writing mdot with r\n"); */
+      /* printf("%s \n", filename_Mdot_with_r ); */
 
       /************************************************************************
        * This calculations are needed in order to monitorize the oscillations
@@ -392,7 +413,7 @@ void Mass_Accretion_Rate(double *B)
 
       /*
        * If Delta > 0, the derivative is positive. If plus is FALSE, and
-       * hence, minus is TRUE, it means that the last derivative was negative
+       * hence, minus isTRUE, it means that the last derivative was negative
        * and so now has a change of sign. Which means we have a minimum.
        * And viceversa with Delta < 0
        */

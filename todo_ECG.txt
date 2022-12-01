@@ -149,26 +149,26 @@
       Does the accretion rate change much when this minimum radius is modified?
 
 - Next steps
-    - Check the precision of the coefficients of the polynomials in Mathematica
-        - Export them in binary format?
-    - Check how r_acc is defined. Is the expression that I use correct?
+    - Check how the accretion rate depends on where I measure it.
+      - Maybe I should let it evolve further, to t = 1000
+        Do this for v_inf = 0.5, and check the results in the paper
 
-    - Run again
-      v = 0.2
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
-      v = 0.3
-        eps = 5 - Running
-        eps = 20 - Running
-        eps = 500 - Running
-      v = 0.9
-        eps = 0
-        eps = 5
-        eps = 20
-        eps = 500
+    - Check how the accretion rate changes with the size of the grid.
+      - Check how it changes with r_min
+      - Check how it changes with r_max
+        - Running computations:
+          vinf = 0.6, eps = 20
+            rmax/racc = 10
+          vinf = 0.5, eps = 0
+            rmax/racc = 10
+            rmax/racc = 12.5
+            rmax/racc = 15
+            rmax/racc = 20
 
+    - Buscar densidade máxima en theta = pi
+      - Usar isto para ver o cambio da densidade
+
+    - Revisar cálculo de ballistic accretion
 
 
 ################################################################################

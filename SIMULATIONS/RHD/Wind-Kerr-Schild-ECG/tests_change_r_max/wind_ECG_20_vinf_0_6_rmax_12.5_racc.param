@@ -1,12 +1,12 @@
 
 % OUTPUT FILE AND DIRECTORY
-outputdirectory = ./results_ECG/K_4over3/vinf_0_5/eps_5/
+outputdirectory = ./results_ECG/K_4over3/vinf_0_6/eps_20_rmax_12.5_racc/
 outputfile      = wind_
 
 % RESTART SIMULATION (1 -> true, 0 -> false)
-restart_simulation = 1
-restartfile = ./results_ECG/K_4over3/vinf_0_5/eps_5/wind_50.dat
-restart_filecount = 50
+restart_simulation = 0
+restartfile = ./results_ECG/K_4over3/vinf_0_6/eps_20_rmax_12.5_racc/wind_30.dat
+restart_filecount = 30
 
 % Define mesh
 Nx1 = 200
@@ -14,17 +14,17 @@ Nx2 = 200
 Nx3 = 0
 
 % Define domain limits
-x1min = 3.0378888512992877
-x1max = 60.75777702598575
+x1min = 2.563333295422152
+x1max = 64.0833323855538
 x2min = 0.0
 x2max = 1.0
 x3min = 0.0
 x3max = 1.0
 
 % Time parameters
-tmax = 1000
-timefile = 25.0
-cou = 0.25
+tmax = 400
+timefile = 20.0
+cou = 0.2
 
 % Polytorpic index
 K = 1.3333333333333333
@@ -49,5 +49,5 @@ Mdot_tprint = 0.
 %% Parameters for the ECG BH %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-epsilon_cubic = 5.
-polynomial_f_file = Polynomials_f_ECG/f(u)_epsilon_5..csv
+epsilon_cubic = 20.
+polynomial_f_file = Polynomials_f_ECG/f(u)_epsilon_20..csv

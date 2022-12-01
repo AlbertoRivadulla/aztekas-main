@@ -5,8 +5,8 @@ outputfile      = wind_
 
 % RESTART SIMULATION (1 -> true, 0 -> false)
 restart_simulation = 1
-restartfile = ./results_ECG/K_4over3/vinf_0_3/eps_500/wind_26.dat
-restart_filecount = 26
+restartfile = ./results_ECG/K_4over3/vinf_0_3/eps_500/wind_61.dat
+restart_filecount = 61
 
 % Define mesh
 Nx1 = 200
@@ -22,7 +22,7 @@ x3min = 0.0
 x3max = 1.0
 
 % Time parameters
-tmax = 1500
+tmax = 2800
 timefile = 37.5
 cou = 0.30
 
