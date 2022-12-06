@@ -17,7 +17,8 @@
    #define periodic_x2        TRUE
 #endif
 
-#define RECONST            MC
+// #define RECONST            MC
+#define RECONST            MINMOD
 #define FLUX               HLL
 // Form of the grid: UNIFORM, LOGMESH, TORTOISE
 // lfac is a parameter for the logarithmic mesh

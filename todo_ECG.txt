@@ -152,6 +152,7 @@
     - Check how the accretion rate depends on where I measure it.
       - Maybe I should let it evolve further, to t = 1000
         Do this for v_inf = 0.5, and check the results in the paper
+      - Compute this with a smaller value of the courant factor, and v_inf = 0.5
 
     - Check how the accretion rate changes with the size of the grid.
       - Check how it changes with r_min
@@ -165,10 +166,30 @@
             rmax/racc = 15
             rmax/racc = 20
 
-    - Buscar densidade máxima en theta = pi
-      - Usar isto para ver o cambio da densidade
-
     - Revisar cálculo de ballistic accretion
+
+    - Calcular Mdot variando r_max 
+    - Calcular Mdot como función de r con resolución 400x400
+
+    - The differences that I found are:
+      - RECONST set to MINMOD instead of MC in user_param.h
+      - The dimension of the spacetime!
+
+    - Volver correr as simulacións
+        - Simulacións orixinais:
+            v_inf = 0.3
+            v_inf = 0.4
+            v_inf = 0.5
+            v_inf = 0.6
+            v_inf = 0.7
+            v_inf = 0.8
+        - Tests change N
+        - Tests change r_max
+            v_inf = 0.5, eps = 0
+            v_inf = 0.5, eps = 20
+        - Tests change r_min
+        - Tests Mdot with r
+        - Calcular o ratio de compresión, a partir dos resultados anteriores
 
 
 ################################################################################
